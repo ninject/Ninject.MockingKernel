@@ -29,7 +29,7 @@ namespace Ninject.Moq
 			var binding = new Binding(service)
 			{
 				ProviderCallback = MockProvider.GetCreationCallback(),
-				ScopeCallback = null,
+				ScopeCallback = ctx => null,
 				IsImplicit = true
 			};
 

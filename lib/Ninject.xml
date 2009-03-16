@@ -306,6 +306,16 @@
             Gets the kernel.
             </summary>
         </member>
+        <member name="T:Ninject.Infrastructure.IHaveBinding">
+            <summary>
+            Indicates the object has a reference to a <see cref="T:Ninject.Planning.Bindings.IBinding"/>.
+            </summary>
+        </member>
+        <member name="P:Ninject.Infrastructure.IHaveBinding.Binding">
+            <summary>
+            Gets the binding.
+            </summary>
+        </member>
         <member name="T:Ninject.Modules.IModuleLoaderPlugin">
             <summary>
             Loads modules at runtime by searching external files.
@@ -315,7 +325,7 @@
             <summary>
             Loads modules from the specified files.
             </summary>
-            <param name="files">The names of the files to load modules from.</param>
+            <param name="filenames">The names of the files to load modules from.</param>
         </member>
         <member name="P:Ninject.Modules.IModuleLoaderPlugin.SupportedPatterns">
             <summary>
@@ -717,11 +727,17 @@
         </member>
         <member name="M:Ninject.Modules.IModuleLoader.LoadModules(System.String)">
             <summary>
+            Loads any modules found in the specified file.
+            </summary>
+            <param name="filename">The name of the file to search.</param>
+        </member>
+        <member name="M:Ninject.Modules.IModuleLoader.FindAndLoadModules(System.String)">
+            <summary>
             Loads any modules found in files in the specified path.
             </summary>
             <param name="path">The path to search.</param>
         </member>
-        <member name="M:Ninject.Modules.IModuleLoader.LoadModules(System.String,System.Boolean)">
+        <member name="M:Ninject.Modules.IModuleLoader.FindAndLoadModules(System.String,System.Boolean)">
             <summary>
             Loads any modules found in files in the specified path.
             </summary>
@@ -742,11 +758,17 @@
         </member>
         <member name="M:Ninject.Modules.ModuleLoader.LoadModules(System.String)">
             <summary>
+            Loads any modules found in the specified file.
+            </summary>
+            <param name="filename">The name of the file to search.</param>
+        </member>
+        <member name="M:Ninject.Modules.ModuleLoader.FindAndLoadModules(System.String)">
+            <summary>
             Loads any modules found in files in the specified path.
             </summary>
             <param name="path">The path to search.</param>
         </member>
-        <member name="M:Ninject.Modules.ModuleLoader.LoadModules(System.String,System.Boolean)">
+        <member name="M:Ninject.Modules.ModuleLoader.FindAndLoadModules(System.String,System.Boolean)">
             <summary>
             Loads any modules found in files in the specified path.
             </summary>
@@ -842,16 +864,6 @@
         <member name="T:Ninject.Planning.Bindings.BindingBuilder`1">
             <summary>
             Provides a root for the fluent syntax associated with an <see cref="P:Ninject.Planning.Bindings.BindingBuilder`1.Binding"/>.
-            </summary>
-        </member>
-        <member name="T:Ninject.Infrastructure.IHaveBinding">
-            <summary>
-            Indicates the object has a reference to a <see cref="T:Ninject.Planning.Bindings.IBinding"/>.
-            </summary>
-        </member>
-        <member name="P:Ninject.Infrastructure.IHaveBinding.Binding">
-            <summary>
-            Gets the binding.
             </summary>
         </member>
         <member name="T:Ninject.Syntax.IBindingToSyntax`1">
@@ -1547,14 +1559,14 @@
         </member>
         <member name="T:Ninject.Infrastructure.AssemblyScanner">
             <summary>
-            Loads modules from compiled assemblies.
+            Finds types in assemblies without loading them into the main <see cref="T:System.AppDomain"/>.
             </summary>
         </member>
         <member name="M:Ninject.Infrastructure.AssemblyScanner.FindMatchingTypesInAssemblies(System.Collections.Generic.IEnumerable{System.String},System.Func{System.Type,System.Boolean})">
             <summary>
             Finds matching types in the specified assemblies.
             </summary>
-            <param name="files">The files to scan to scan.</param>
+            <param name="assemblyOrFileNames">The assembly or file names to scan.</param>
             <param name="predicate">The predicate to match.</param>
             <returns>A series of the matching types.</returns>
         </member>
@@ -2634,14 +2646,7 @@
             <summary>
             Loads modules from the specified files.
             </summary>
-            <param name="files">The names of the files to load modules from.</param>
-        </member>
-        <member name="M:Ninject.Modules.CompiledModuleLoaderPlugin.IsLoadableModule(System.Type)">
-            <summary>
-            Determines whether the specified type is a loadable module.
-            </summary>
-            <param name="type">The type in question.</param>
-            <returns><see langword="True"/> if the type represents a loadable module; otherwise <see langword="false"/>.</returns>
+            <param name="filenames">The names of the files to load modules from.</param>
         </member>
         <member name="P:Ninject.Modules.CompiledModuleLoaderPlugin.Kernel">
             <summary>
@@ -2952,6 +2957,13 @@
             Creates a new instance of the module and loads it into the kernel.
             </summary>
             <typeparam name="TModule">The type of the module.</typeparam>
+        </member>
+        <member name="M:Ninject.ModuleLoadExtensions.Load(Ninject.IKernel,System.String)">
+            <summary>
+            Loads any modules defined the specified file.
+            </summary>
+            <param name="kernel">The kernel.</param>
+            <param name="filename">The name of the file to search.</param>
         </member>
         <member name="M:Ninject.ModuleLoadExtensions.AutoLoadModules(Ninject.IKernel)">
             <summary>
@@ -3415,71 +3427,6 @@
             Gets the type of the target.
             </summary>
         </member>
-        <member name="T:Ninject.Modules.Module">
-            <summary>
-            A pluggable unit that can be loaded into a kernel.
-            </summary>
-        </member>
-        <member name="M:Ninject.Modules.Module.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ninject.Modules.Module"/> class.
-            </summary>
-        </member>
-        <member name="M:Ninject.Modules.Module.OnLoad(Ninject.IKernel)">
-            <summary>
-            Called when the module is loaded into a kernel.
-            </summary>
-            <param name="kernel">The kernel that is loading the module.</param>
-        </member>
-        <member name="M:Ninject.Modules.Module.OnUnload(Ninject.IKernel)">
-            <summary>
-            Called when the module is unloaded from a kernel.
-            </summary>
-            <param name="kernel">The kernel that is unloading the module.</param>
-        </member>
-        <member name="M:Ninject.Modules.Module.Load">
-            <summary>
-            Loads the module into the kernel.
-            </summary>
-        </member>
-        <member name="M:Ninject.Modules.Module.Unload">
-            <summary>
-            Unloads this module from the kernel.
-            </summary>
-        </member>
-        <member name="M:Ninject.Modules.Module.Unbind(System.Type)">
-            <summary>
-            Unregisters all bindings for the specified service.
-            </summary>
-            <param name="service">The service to unbind.</param>
-        </member>
-        <member name="M:Ninject.Modules.Module.AddBinding(Ninject.Planning.Bindings.IBinding)">
-            <summary>
-            Registers the specified binding.
-            </summary>
-            <param name="binding">The binding to add.</param>
-        </member>
-        <member name="M:Ninject.Modules.Module.RemoveBinding(Ninject.Planning.Bindings.IBinding)">
-            <summary>
-            Unregisters the specified binding.
-            </summary>
-            <param name="binding">The binding to remove.</param>
-        </member>
-        <member name="P:Ninject.Modules.Module.Kernel">
-            <summary>
-            Gets the kernel that the module is loaded into.
-            </summary>
-        </member>
-        <member name="P:Ninject.Modules.Module.Name">
-            <summary>
-            Gets the module's name. Only a single module with a given name can be loaded at one time.
-            </summary>
-        </member>
-        <member name="P:Ninject.Modules.Module.Bindings">
-            <summary>
-            Gets the bindings that were registered by the module.
-            </summary>
-        </member>
         <member name="T:Ninject.Components.ComponentContainer">
             <summary>
             An internal container that manages and resolves components that contribute to Ninject.
@@ -3632,6 +3579,71 @@
             </summary>
             <param name="member">The member in question.</param>
             <returns><c>True</c> if the member should be injected; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:Ninject.Modules.NinjectModule">
+            <summary>
+            A pluggable unit that can be loaded into a kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Modules.NinjectModule"/> class.
+            </summary>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.OnLoad(Ninject.IKernel)">
+            <summary>
+            Called when the module is loaded into a kernel.
+            </summary>
+            <param name="kernel">The kernel that is loading the module.</param>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.OnUnload(Ninject.IKernel)">
+            <summary>
+            Called when the module is unloaded from a kernel.
+            </summary>
+            <param name="kernel">The kernel that is unloading the module.</param>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.Unload">
+            <summary>
+            Unloads this module from the kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.Unbind(System.Type)">
+            <summary>
+            Unregisters all bindings for the specified service.
+            </summary>
+            <param name="service">The service to unbind.</param>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.AddBinding(Ninject.Planning.Bindings.IBinding)">
+            <summary>
+            Registers the specified binding.
+            </summary>
+            <param name="binding">The binding to add.</param>
+        </member>
+        <member name="M:Ninject.Modules.NinjectModule.RemoveBinding(Ninject.Planning.Bindings.IBinding)">
+            <summary>
+            Unregisters the specified binding.
+            </summary>
+            <param name="binding">The binding to remove.</param>
+        </member>
+        <member name="P:Ninject.Modules.NinjectModule.Kernel">
+            <summary>
+            Gets the kernel that the module is loaded into.
+            </summary>
+        </member>
+        <member name="P:Ninject.Modules.NinjectModule.Name">
+            <summary>
+            Gets the module's name. Only a single module with a given name can be loaded at one time.
+            </summary>
+        </member>
+        <member name="P:Ninject.Modules.NinjectModule.Bindings">
+            <summary>
+            Gets the bindings that were registered by the module.
+            </summary>
         </member>
     </members>
 </doc>
