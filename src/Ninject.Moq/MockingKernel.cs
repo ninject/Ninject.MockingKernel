@@ -10,6 +10,8 @@ namespace Ninject.Moq
 	/// </summary>
 	public class MockingKernel : StandardKernel
 	{
+		private static readonly object Singleton = new object();
+
 		/// <summary>
 		/// Clears the kernel's cache, immediately deactivating all activated instances regardless of scope.
 		/// This does not remove any modules, extensions, or bindings.
@@ -26,14 +28,24 @@ namespace Ninject.Moq
 		/// <returns><c>True</c> if the missing binding can be handled; otherwise <c>false</c>.</returns>
 		protected override bool HandleMissingBinding(Type service)
 		{
-			var binding = new Binding(service)
-			{
-				ProviderCallback = MockProvider.GetCreationCallback(),
-				ScopeCallback = ctx => null,
-				IsImplicit = true
-			};
+			bool selfBindable = TypeIsSelfBindable(service);
 
-			AddBinding(binding);
+			if (selfBindable)
+			{
+				Bind(service).ToSelf().InSingletonScope();
+			}
+			else
+			{
+				var binding = new Binding(service)
+				              	{
+				              		ProviderCallback = MockProvider.GetCreationCallback(),
+				              		ScopeCallback = ctx => Singleton,
+				              		IsImplicit = true
+				              	};
+
+				AddBinding(binding);
+			}
+
 
 			return true;
 		}
