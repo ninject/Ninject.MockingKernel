@@ -21,11 +21,22 @@
 
 namespace Ninject.MockingKernel.RhinoMock
 {
+#if !NO_RHINOMOCKS_SILVERLIGHT_TESTS
+#if SILVERLIGHT
+#if SILVERLIGHT_MSTEST
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+#else
+    using UnitDriven;
+#endif
+#else
+    using Ninject.MockingKernel.MSTestAttributes;
+#endif
     using Rhino.Mocks;
 
     /// <summary>
     /// Tests the rhino mocks mocking kernel.
     /// </summary>
+    [TestClass]
     public class RhinoMocksIntegrationTest : IntegrationTest
     {
         /// <summary>
@@ -46,4 +57,5 @@ namespace Ninject.MockingKernel.RhinoMock
             dummyService.AssertWasCalled(s => s.Do());
         }
     }
+#endif
 }

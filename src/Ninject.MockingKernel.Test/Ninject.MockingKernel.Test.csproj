@@ -72,6 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IntegrationTest.cs" />
+    <Compile Include="MSTestAttributes\TestClassAttribute.cs" />
+    <Compile Include="MSTestAttributes\TestInitialize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

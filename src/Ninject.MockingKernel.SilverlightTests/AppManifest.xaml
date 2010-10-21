@@ -1,0 +1,13 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="Ninject.MockingKernel.SilverlightTests" EntryPointType="Ninject.MockingKernel.SilverlightTests.App" RuntimeVersion="4.0.50401.0">
+  <Deployment.Parts>
+    <AssemblyPart x:Name="Ninject.MockingKernel.SilverlightTests" Source="Ninject.MockingKernel.SilverlightTests.dll" />
+    <AssemblyPart x:Name="Moq.Silverlight" Source="Moq.Silverlight.dll" />
+    <AssemblyPart x:Name="Ninject" Source="Ninject.dll" />
+    <AssemblyPart x:Name="Ninject.MockingKernel" Source="Ninject.MockingKernel.dll" />
+    <AssemblyPart x:Name="Ninject.MockingKernel.Moq" Source="Ninject.MockingKernel.Moq.dll" />
+    <!--<AssemblyPart x:Name="Ninject.MockingKernel.RhinoMock" Source="Ninject.MockingKernel.RhinoMock.dll" />-->
+    <AssemblyPart x:Name="Castle.Core-Silverlight" Source="Castle.Core-Silverlight.dll" />
+    <AssemblyPart x:Name="Castle.DynamicProxy-Silverlight" Source="Castle.DynamicProxy-Silverlight.dll" />
+    <AssemblyPart x:Name="UnitDrivenLight" Source="UnitDrivenLight.dll" />
+  </Deployment.Parts>
+</Deployment>

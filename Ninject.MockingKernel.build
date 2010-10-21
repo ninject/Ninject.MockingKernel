@@ -10,9 +10,11 @@
 	<property name="dependencies" value="Ninject"  overwrite="false"/>
 
 	<include buildfile="Ninject.include" />
-	<target name="all" depends="core test"/>
+	<target name="all" depends="core test silverlight-test"/>
 
-	<target name="core" depends="init">
+	<target name="core" depends="init buildCore buildMoq buildRhinoMocks" />
+
+	<target name="buildCore" depends="init">
 		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 		     output="${current.path.build}/${product.assembly}" doc="${current.path.build}/${product.docfile}" keyfile="${path.src}/${product.keyfile}">
 			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
@@ -28,7 +30,9 @@
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
 			</references>
 		</csc>
+	</target>
 		
+	<target name="buildMoq">
 		<property name="product.assembly.moq" value="${product.name}.Moq.dll" overwrite="false"/>
 		<property name="product.docfile.moq" value="${product.name}.Moq.xml" overwrite="false"/>
 		<property name="current.path.lib.moq" value="${path.lib}/Moq/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
@@ -57,11 +61,13 @@
 				<include name="${current.path.lib.moq}/Moq.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
 			</references>
 		</csc>
-		
+	</target>
+	
+	<target name="buildRhinoMocks" unless="${string::contains(build.platform, 'silverlight')}">
 		<property name="product.assembly.rhinomock" value="${product.name}.RhinoMock.dll" overwrite="false"/>
 		<property name="product.docfile.rhinomock" value="${product.name}.RhinoMock.xml" overwrite="false"/>
-		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks" unless="${string::contains(build.platform, 'silverlight')}" />
-		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks" if="${string::contains(build.platform, 'silverlight')}" />
+		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
+		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/silverlight" if="${string::contains(build.platform, 'silverlight')}" />
 		<copy todir="${current.path.build}/lib">
 			<fileset basedir="${current.path.lib.rhinomocks}">
 				<include name="**/*.dll"/>
@@ -82,9 +88,10 @@
 				<include name="System.Web.dll" unless="${build.platform == 'silverlight-2.0'}"/>
 				<include name="${current.path.build}/${product.assembly}"/>
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
-				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks.dll"/>
+				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks.dll" unless="${string::contains(build.platform, 'silverlight')}"/>
+				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks 3.5.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
 			</references>
-		</csc>		
+		</csc>	
 	</target>
 
 	<target name="compile-tests" depends="core" unless="${skip.tests}" if="${not(string::contains(build.platform, 'silverlight') or build.platform == 'netcf-3.5')}">
@@ -136,13 +143,6 @@
             </fileset>
         </copy>
         <copy todir="${current.path.test}">
-            <fileset basedir="${path.tools.moq}/silverlight">
-                <include name="Moq.Silverlight.dll"/>
-                <include name="Castle.DynamicProxy-Silverlight.dll"/>
-                <include name="Castle.Core-Silverlight.dll"/>
-            </fileset>
-        </copy>
-        <copy todir="${current.path.test}">
             <fileset basedir="${path.tools.unitdriven}">
                 <include name="UnitDrivenLight.dll"/>
             </fileset>
@@ -151,8 +151,12 @@
          output="${current.path.test}/${product.assembly.silverlighttestdll}">
             <sources basedir="${path.src}">
                 <include name="${product.name}.Test/**/*.cs"/>
+				<include name="${product.name}.Moq.Test/**/*.cs"/>
+				<!--<include name="${product.name}.RhinoMock.Test/**/*.cs"/>-->
                 <include name="${product.name}.SilverlightTests/*.cs"/>
 				<exclude name="${product.name}.Test/MSTestAttributes/*.cs"/>
+				<exclude name="${product.name}.Moq.Test/Properties/*.cs"/>
+				<exclude name="${product.name}.RhinoMock.Test/Properties/*.cs"/>
             </sources>
             <references basedir="${current.path.test}">
                 <include name="mscorlib.dll"/>
@@ -162,10 +166,13 @@
                 <include name="System.Windows.Browser.dll"/>
                 <include name="System.Net.dll"/>
                 <include name="Moq.Silverlight.dll"/>
+				<include name="Rhino.Mocks 3.5.Silverlight.dll"/>
                 <include name="Castle.DynamicProxy-Silverlight.dll"/>
                 <include name="Castle.Core-Silverlight.dll"/>
                 <include name="UnitDrivenLight.dll"/>
 				<include name="${product.assembly}"/>
+				<include name="${product.assembly.moq}"/>
+				<!--<include name="${product.assembly.rhinomock}"/>-->
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
             </references>
             <nowarn>
