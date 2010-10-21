@@ -60,7 +60,7 @@ namespace Ninject.MockingKernel.Moq
         public object Create(IContext context)
         {
             Type mockType = typeof(Mock<>).MakeGenericType(context.Request.Service);
-            var constructorInfo = mockType.GetConstructor(Type.EmptyTypes);
+            var constructorInfo = mockType.GetConstructor(new Type[0]);
             var mock = (Mock)constructorInfo.Invoke(new object[0]);
             return mock.Object;
         }
