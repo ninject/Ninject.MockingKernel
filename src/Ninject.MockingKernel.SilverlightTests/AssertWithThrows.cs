@@ -1,4 +1,22 @@
-﻿namespace Ninject.SilverlightTests
+﻿//-------------------------------------------------------------------------------
+// <copyright file="AssertWithThrows.cs" company="bbv Software Services AG">
+//   Copyright (c) 2010 Software Services AG
+//   Remo Gloor (remo.gloor@gmail.com)
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+// </copyright>
+//-------------------------------------------------------------------------------
+namespace Ninject.MockingKernel
 {
     using System;
     using System.Globalization;
@@ -8,8 +26,15 @@
     using Assert = UnitDriven.Assert;
 #endif
 
+    /// <summary>
+    /// An assert implementation that adds Throws and deos not throw for UnitDriven and MsTest
+    /// </summary>
     public class AssertWithThrows
     {
+        /// <summary>
+        /// Asserts that the action does not throw an exception.
+        /// </summary>
+        /// <param name="action">The action.</param>
         public static void DoesNotThrow(Action action)
         {
             try
@@ -22,6 +47,11 @@
             }
         }
 
+        /// <summary>
+        /// Asserts that the action throws the specified exception.
+        /// </summary>
+        /// <typeparam name="T">The type of exception that is expected to be thrown.</typeparam>
+        /// <param name="action">The action.</param>
         public static void Throws<T>(Action action)
             where T : Exception
         {
