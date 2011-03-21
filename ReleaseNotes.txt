@@ -1,0 +1,3 @@
+Version 2.4.0.0
+---------------
+Removed: No web builds. All builds are have not reference to web anymore
