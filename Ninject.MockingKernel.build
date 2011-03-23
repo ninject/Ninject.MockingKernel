@@ -16,7 +16,7 @@
 
 	<target name="buildCore" depends="init">
 		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
-		     output="${current.path.build}/${product.assembly}" doc="${current.path.build}/${product.docfile}" keyfile="${path.src}/${product.keyfile}">
+			 output="${current.path.build}/${product.assembly}" doc="${current.path.build}/${product.docfile}" keyfile="${path.src}/${product.keyfile}">
 			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
 			<sources basedir="${path.src}">
 				<include name="${build.asminfo}"/>
@@ -34,8 +34,10 @@
 	<target name="buildMoq">
 		<property name="product.assembly.moq" value="${product.name}.Moq.dll" overwrite="false"/>
 		<property name="product.docfile.moq" value="${product.name}.Moq.xml" overwrite="false"/>
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight" if="${string::contains(build.platform, 'silverlight')}" />
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/net35" unless="${string::contains(build.platform, 'silverlight') or string::contains(build.platform, 'net-4.0')}"/>
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/net40" unless="${string::contains(build.platform, 'silverlight')}" if="${string::contains(build.platform, 'net-4.0')}"/>
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight3" if="${string::contains(build.platform, 'silverlight')}" unless="${string::contains(build.platform, 'silverlight-4.0')}" />
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight4" if="${string::contains(build.platform, 'silverlight-4.0')}" />
 		<copy todir="${current.path.build}/lib">
 			<fileset basedir="${current.path.lib.moq}">
 				<include name="**/*.dll"/>
@@ -43,7 +45,7 @@
 			</fileset>
 		</copy>
 		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
-		     output="${current.path.build}/${product.assembly.moq}" doc="${current.path.build}/${product.docfile.moq}" keyfile="${path.src}/${product.keyfile}">
+			 output="${current.path.build}/${product.assembly.moq}" doc="${current.path.build}/${product.docfile.moq}" keyfile="${path.src}/${product.keyfile}">
 			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
 			<sources basedir="${path.src}">
 				<include name="${build.asminfo}"/>
@@ -129,11 +131,11 @@
 		<copy todir="${current.path.test}">
 			<fileset basedir="${path.tools.xunit}">
 				<include name="xunit.dll"/>
-                <include name="xunit.should.dll"/>
+				<include name="xunit.should.dll"/>
 			</fileset>
 		</copy>
 		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
-         output="${current.path.test}/${product.assembly.test}">
+		 output="${current.path.test}/${product.assembly.test}">
 			<sources basedir="${path.src}">
 				<include name="${product.name}.Test/**/*.cs"/>
 				<include name="${product.name}.Moq.Test/**/*.cs"/>
@@ -151,7 +153,7 @@
 				<include name="Rhino.Mocks.dll"/>
 				<include name="NSubstitute.dll"/>
 				<include name="xunit.dll"/>
-                <include name="xunit.should.dll"/>
+				<include name="xunit.should.dll"/>
 				<include name="${product.assembly}"/>
 				<include name="${product.assembly.moq}"/>
 				<include name="${product.assembly.rhinomock}"/>
@@ -164,57 +166,61 @@
 		</csc>
 	</target>
 	
-    <target name="compile-silverlight-tests" depends="core" unless="${skip.tests or skip.silverlightTests}" if="${string::contains(build.platform, 'silverlight')}">
-        <mkdir dir="${current.path.test}"/>
-        <copy todir="${current.path.test}" flatten="true">
-            <fileset basedir="${current.path.build}">
-                <include name="**/*.dll"/>
-            </fileset>
-        </copy>
-        <copy todir="${current.path.test}">
-            <fileset basedir="${path.tools.unitdriven}">
-                <include name="UnitDrivenLight.dll"/>
-            </fileset>
-        </copy>
-        <csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
-         output="${current.path.test}/${product.assembly.silverlighttestdll}">
-            <sources basedir="${path.src}">
-                <include name="${product.name}.Test/**/*.cs"/>
+	<target name="compile-silverlight-tests" depends="core" unless="${skip.tests or skip.silverlightTests}" if="${string::contains(build.platform, 'silverlight')}">
+		<mkdir dir="${current.path.test}"/>
+		<copy todir="${current.path.test}" flatten="true">
+			<fileset basedir="${current.path.build}">
+				<include name="**/*.dll"/>
+			</fileset>
+		</copy>
+		<copy todir="${current.path.test}">
+			<fileset basedir="${path.tools.unitdriven}">
+				<include name="UnitDrivenLight.dll"/>
+			</fileset>
+		</copy>
+		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
+		 output="${current.path.test}/${product.assembly.silverlighttestdll}">
+			<sources basedir="${path.src}">
+				<include name="${product.name}.Test/**/*.cs"/>
 				<include name="${product.name}.Moq.Test/**/*.cs"/>
 				<!--<include name="${product.name}.RhinoMock.Test/**/*.cs"/>-->
-                <include name="${product.name}.SilverlightTests/*.cs"/>
+				<include name="${product.name}.SilverlightTests/*.cs"/>
 				<exclude name="${product.name}.Test/MSTestAttributes/*.cs"/>
 				<exclude name="${product.name}.Moq.Test/Properties/*.cs"/>
 				<exclude name="${product.name}.RhinoMock.Test/Properties/*.cs"/>
-            </sources>
-            <references basedir="${current.path.test}">
-                <include name="mscorlib.dll"/>
-                <include name="System.dll"/>
-                <include name="System.Core.dll"/>
-                <include name="System.Windows.dll"/>
-                <include name="System.Windows.Browser.dll"/>
-                <include name="System.Net.dll"/>
-                <include name="Moq.Silverlight.dll"/>
+			</sources>
+			<references basedir="${current.path.test}">
+				<include name="mscorlib.dll"/>
+				<include name="System.dll"/>
+				<include name="System.Core.dll"/>
+				<include name="System.Windows.dll"/>
+				<include name="System.Windows.Browser.dll"/>
+				<include name="System.Net.dll"/>
+				<include name="Moq.Silverlight.dll"/>
 				<include name="Rhino.Mocks 3.5.Silverlight.dll"/>
-                <include name="Castle.DynamicProxy-Silverlight.dll"/>
-                <include name="Castle.Core-Silverlight.dll"/>
-                <include name="UnitDrivenLight.dll"/>
+				<include name="Castle.Core.dll" if="${string::contains(build.platform, 'silverlight-4.0')}"/>
+				<include name="Castle.Core-Silverlight.dll" unless="${string::contains(build.platform, 'silverlight-4.0')}"/>
+				<include name="Castle.DynamicProxy-Silverlight.dll" unless="${string::contains(build.platform, 'silverlight-4.0')}"/>
+				<include name="UnitDrivenLight.dll"/>
 				<include name="${product.assembly}"/>
 				<include name="${product.assembly.moq}"/>
 				<!--<include name="${product.assembly.rhinomock}"/>-->
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
-            </references>
-            <nowarn>
-                <warning number="1584"/>
-            </nowarn>
-        </csc>
+			</references>
+			<nowarn>
+				<warning number="1584"/>
+			</nowarn>
+		</csc>
 		<zip zipfile="${current.path.test}/${product.assembly.silverlighttest}">
 			<fileset basedir="${current.path.test}">
 				<include name="*.dll" />
 			</fileset>
-            <fileset basedir="${path.src}/${product.name}.SilverlightTests">
-                <include name="AppManifest.xaml"/>
-            </fileset>
+			<fileset basedir="${path.src}/${product.name}.SilverlightTests">
+				<include name="AppManifest.xaml" if="${string::contains(build.platform, 'silverlight-4.0')}"/>
+			</fileset>
+			<fileset basedir="${path.src}/${product.name}.SilverlightTests/Silverlight3">
+				<include name="AppManifest.xaml" unless="${string::contains(build.platform, 'silverlight-4.0')}"/>
+			</fileset>
 		</zip>
-    </target>	
+	</target>
 </project>
