@@ -57,7 +57,9 @@ namespace Ninject.MockingKernel.Moq
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns>The created instance.</returns>
+#if !NETCF
         [System.Security.SecuritySafeCritical]
+#endif
         public object Create(IContext context)
         {
             Type mockType = typeof(Mock<>).MakeGenericType(context.Request.Service);
