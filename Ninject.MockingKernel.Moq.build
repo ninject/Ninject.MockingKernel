@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="Ninject" default="build">
+	<target name="buildMoq">
+		<property name="product.assembly.moq" value="${product.name}.Moq.dll" overwrite="false"/>
+		<property name="product.docfile.moq" value="${product.name}.Moq.xml" overwrite="false"/>
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/net35" unless="${string::contains(build.platform, 'silverlight') or string::contains(build.platform, 'net-4.0')}"/>
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/net40" unless="${string::contains(build.platform, 'silverlight')}" if="${string::contains(build.platform, 'net-4.0')}"/>
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight3" if="${string::contains(build.platform, 'silverlight')}" unless="${string::contains(build.platform, 'silverlight-4.0')}" />
+		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight4" if="${string::contains(build.platform, 'silverlight-4.0')}" />
+		<copy todir="${current.path.build}/lib">
+			<fileset basedir="${current.path.lib.moq}">
+				<include name="**/*.dll"/>
+				<include name="**/*.xml"/>
+			</fileset>
+		</copy>
+		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
+			 output="${current.path.build}/${product.assembly.moq}" doc="${current.path.build}/${product.docfile.moq}" keyfile="${path.src}/${product.keyfile}">
+			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
+			<sources basedir="${path.src}">
+				<include name="${build.asminfo}"/>
+				<include name="${product.name}.Moq/**/*.cs"/>
+			</sources>
+			<references>
+				<include name="mscorlib.dll"/>
+				<include name="System.dll"/>
+				<include name="System.Core.dll"/>
+				<include name="${current.path.build}/${product.assembly}"/>
+				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
+				<include name="${current.path.lib.moq}/Moq.dll" unless="${string::contains(build.platform, 'silverlight')}"/>
+				<include name="${current.path.lib.moq}/Moq.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
+			</references>
+		</csc>
+	</target>
+
+	
+	<target name="nuget-moq">
+		<property name="nuget.sourcedir" value="${path.base}/nuget-moq" />
+		<property name="nuget.basedir" value="${path.base}/build/nuget-moq" />
+		<property name="nuget.platforms" value="${product.platforms}" />
+		<property name="nuget.name" value="${product.name}.Moq" />
+		<property name="nuget.releaseDirectory" value="${path.build}\${build.platform}\release" dynamic="true"/>
+		<property name="nuget.dependencies" value="Ninject.MockingKernel" />
+		<property name="nuget.additionalFiles" value="-" />
+		
+		<call target="nuget-run"/>
+	</target>	
+</project>

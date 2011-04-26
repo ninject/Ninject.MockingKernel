@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="Ninject" default="build">
+	<target name="buildRhinoMocks" unless="${string::contains(build.platform, 'silverlight')}">
+		<property name="product.assembly.rhinomock" value="${product.name}.RhinoMock.dll" overwrite="false"/>
+		<property name="product.docfile.rhinomock" value="${product.name}.RhinoMock.xml" overwrite="false"/>
+		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
+		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/silverlight" if="${string::contains(build.platform, 'silverlight')}" />
+		<copy todir="${current.path.build}/lib">
+			<fileset basedir="${current.path.lib.rhinomocks}">
+				<include name="**/*.dll"/>
+				<include name="**/*.xml"/>
+			</fileset>
+		</copy>
+		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
+			 output="${current.path.build}/${product.assembly.rhinomock}" doc="${current.path.build}/${product.docfile.rhinomock}" keyfile="${path.src}/${product.keyfile}">
+			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
+			<sources basedir="${path.src}">
+				<include name="${build.asminfo}"/>
+				<include name="${product.name}.RhinoMock/**/*.cs"/>
+			</sources>
+			<references>
+				<include name="mscorlib.dll"/>
+				<include name="System.dll"/>
+				<include name="System.Core.dll"/>
+				<include name="${current.path.build}/${product.assembly}"/>
+				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
+				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks.dll" unless="${string::contains(build.platform, 'silverlight')}"/>
+				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks 3.5.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
+			</references>
+		</csc>	
+	</target>
+	
+	<target name="nuget-RhinoMocks">
+		<property name="nuget.sourcedir" value="${path.base}/nuget-rhinoMocks" />
+		<property name="nuget.basedir" value="${path.base}/build/nuget-rhinoMocks" />
+		<property name="nuget.platforms" value="net-3.5,net-3.5-no-web,net-4.0,net-4.0-no-web,mono-2.0,mono-2.0-no-web,netcf-3.5" />
+		<property name="nuget.name" value="${product.name}.RhinoMock" />
+		<property name="nuget.releaseDirectory" value="${path.build}\${build.platform}\release" dynamic="true"/>
+		<property name="nuget.dependencies" value="Ninject.MockingKernel" />
+		<property name="nuget.additionalFiles" value="-" />
+		
+		<call target="nuget-run"/>
+	</target>	
+</project>
