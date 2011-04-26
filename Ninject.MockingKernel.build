@@ -5,12 +5,18 @@
 	<property name="product.company" value="bbv Software Services AG" overwrite="false"/>
 	<property name="product.duration" value="2009-2011" overwrite="false"/>
 	<property name="product.description" value="Auto mocking kernel based on Ninject" overwrite="false"/>
-	<property name="product.platforms" value="net-3.5,net-3.5-no-web,net-4.0,net-4.0-no-web,silverlight-4.0,silverlight-3.0,silverlight-2.0,silverlight-4.0-wp7,mono-2.0,mono-2.0-no-web,netcf-3.5"  overwrite="false"/>
+	<property name="product.platforms" value="net-3.5,net-3.5-no-web,net-4.0,net-4.0-no-web,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,mono-2.0-no-web,netcf-3.5"  overwrite="false"/>
 	<property name="product.buildserverPlatforms" value="net-3.5,net-3.5-no-web,net-4.0,net-4.0-no-web,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,mono-2.0-no-web,netcf-3.5"  overwrite="false"/>
+	<property name="product.clsCompliant" value="false" overwrite="false"/>
 	<property name="dependencies" value="Ninject"  overwrite="false"/>
 
 	<include buildfile="Ninject.include" />
+	<include buildfile="Ninject.MockingKernel.Moq.build" />
+	<include buildfile="Ninject.MockingKernel.RhinoMocks.build" />
+	<include buildfile="Ninject.MockingKernel.NSubstitute.build" />
+
 	<target name="all" depends="core test silverlight-test"/>
+	<target name="nuget-all" depends="nuget nuget-moq nuget-RhinoMocks nuget-NSubstitute"/>
 
 	<target name="core" depends="init buildCore buildMoq buildRhinoMocks buildNSubstitute" />
 
@@ -32,97 +38,6 @@
 		</csc>
 	</target>
 		
-	<target name="buildMoq">
-		<property name="product.assembly.moq" value="${product.name}.Moq.dll" overwrite="false"/>
-		<property name="product.docfile.moq" value="${product.name}.Moq.xml" overwrite="false"/>
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight" if="${string::contains(build.platform, 'silverlight')}" />
-		<copy todir="${current.path.build}/lib">
-			<fileset basedir="${current.path.lib.moq}">
-				<include name="**/*.dll"/>
-				<include name="**/*.xml"/>
-			</fileset>
-		</copy>
-		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
-		     output="${current.path.build}/${product.assembly.moq}" doc="${current.path.build}/${product.docfile.moq}" keyfile="${path.src}/${product.keyfile}">
-			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
-			<sources basedir="${path.src}">
-				<include name="${build.asminfo}"/>
-				<include name="${product.name}.Moq/**/*.cs"/>
-			</sources>
-			<references>
-				<include name="mscorlib.dll"/>
-				<include name="System.dll"/>
-				<include name="System.Core.dll"/>
-				<include name="System.Web.dll" unless="${build.platform == 'silverlight-2.0'}"/>
-				<include name="${current.path.build}/${product.assembly}"/>
-				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
-				<include name="${current.path.lib.moq}/Moq.dll" unless="${string::contains(build.platform, 'silverlight')}"/>
-				<include name="${current.path.lib.moq}/Moq.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
-			</references>
-		</csc>
-	</target>
-	
-	<target name="buildRhinoMocks" unless="${string::contains(build.platform, 'silverlight')}">
-		<property name="product.assembly.rhinomock" value="${product.name}.RhinoMock.dll" overwrite="false"/>
-		<property name="product.docfile.rhinomock" value="${product.name}.RhinoMock.xml" overwrite="false"/>
-		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
-		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/silverlight" if="${string::contains(build.platform, 'silverlight')}" />
-		<copy todir="${current.path.build}/lib">
-			<fileset basedir="${current.path.lib.rhinomocks}">
-				<include name="**/*.dll"/>
-				<include name="**/*.xml"/>
-			</fileset>
-		</copy>
-		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
-			 output="${current.path.build}/${product.assembly.rhinomock}" doc="${current.path.build}/${product.docfile.rhinomock}" keyfile="${path.src}/${product.keyfile}">
-			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
-			<sources basedir="${path.src}">
-				<include name="${build.asminfo}"/>
-				<include name="${product.name}.RhinoMock/**/*.cs"/>
-			</sources>
-			<references>
-				<include name="mscorlib.dll"/>
-				<include name="System.dll"/>
-				<include name="System.Core.dll"/>
-				<include name="System.Web.dll" unless="${build.platform == 'silverlight-2.0'}"/>
-				<include name="${current.path.build}/${product.assembly}"/>
-				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
-				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks.dll" unless="${string::contains(build.platform, 'silverlight')}"/>
-				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks 3.5.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
-			</references>
-		</csc>	
-	</target>
-
-	<target name="buildNSubstitute" unless="${string::contains(build.platform, 'silverlight')}">
-		<property name="product.assembly.nsubstitute" value="${product.name}.NSubstitute.dll" overwrite="false"/>
-		<property name="product.docfile.nsubstitute" value="${product.name}.NSubstitute.xml" overwrite="false"/>
-		<property name="current.path.lib.nsubstitute" value="${path.lib}/NSubstitute/net-3.5" />		
-		<copy todir="${current.path.build}/lib">
-			<fileset basedir="${current.path.lib.nsubstitute}">
-				<include name="**/*.dll"/>
-				<include name="**/*.xml"/>
-			</fileset>
-		</copy>
-		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
-			 output="${current.path.build}/${product.assembly.nsubstitute}" doc="${current.path.build}/${product.docfile.nsubstitute}" keyfile="${path.src}/${product.keyfile}">
-			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
-			<sources basedir="${path.src}">
-				<include name="${build.asminfo}"/>
-				<include name="${product.name}.NSubstitute/**/*.cs"/>
-			</sources>
-			<references>
-				<include name="mscorlib.dll"/>
-				<include name="System.dll"/>
-				<include name="System.Core.dll"/>
-				<include name="System.Web.dll" unless="${build.platform == 'silverlight-2.0'}"/>
-				<include name="${current.path.build}/${product.assembly}"/>
-				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
-				<include name="${current.path.lib.nsubstitute}/NSubstitute.dll"/>				
-			</references>
-		</csc>	
-	</target>
-
 	<target name="compile-tests" depends="core" unless="${skip.tests}" if="${not(string::contains(build.platform, 'silverlight') or build.platform == 'netcf-3.5')}">
 		<mkdir dir="${current.path.test}"/>
 		<copy todir="${current.path.test}" flatten="true">
