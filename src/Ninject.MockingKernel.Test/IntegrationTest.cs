@@ -21,18 +21,8 @@
 
 namespace Ninject.MockingKernel
 {
-#if SILVERLIGHT
-#if SILVERLIGHT_MSTEST
-    using MsTest.Should;
-    using Fact = Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute;
-#else
-    using UnitDriven.Should;
-    using Fact = UnitDriven.TestMethodAttribute;
-#endif
-#else
     using Xunit;
     using Xunit.Should;
-#endif
 
     /// <summary>
     /// Abstract test base for testing mocking kernel implementations

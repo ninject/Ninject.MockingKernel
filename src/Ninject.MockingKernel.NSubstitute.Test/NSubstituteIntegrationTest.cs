@@ -21,23 +21,12 @@
 
 namespace Ninject.MockingKernel.NSubstitute
 {
-    using MSTestAttributes;
     using global::NSubstitute;
 
 #if !NO_NSUBSTITUTE_SILVERLIGHT_TESTS
-#if SILVERLIGHT
-#if SILVERLIGHT_MSTEST
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-#else
-    using UnitDriven;
-#endif
-#else
-#endif
-
     /// <summary>
     /// Tests the rhino mocks mocking kernel.
     /// </summary>
-    [TestClass]
     public class NSubstituteIntegrationTest : IntegrationTest
     {
         /// <summary>

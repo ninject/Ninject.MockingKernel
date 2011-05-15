@@ -22,20 +22,10 @@
 namespace Ninject.MockingKernel.Moq
 {
     using global::Moq;
-#if SILVERLIGHT
-#if SILVERLIGHT_MSTEST
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-#else
-    using UnitDriven;
-#endif
-#else
-    using Ninject.MockingKernel.MSTestAttributes;
-#endif
 
     /// <summary>
     /// Integration test for the moq mocking kernel.
     /// </summary>
-    [TestClass]
     public class MoqIntegrationTest : IntegrationTest
     {
         /// <summary>
