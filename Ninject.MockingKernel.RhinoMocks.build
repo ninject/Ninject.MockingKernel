@@ -34,10 +34,13 @@
 		<property name="nuget.sourcedir" value="${path.base}/nuget-rhinoMocks" />
 		<property name="nuget.basedir" value="${path.base}/build/nuget-rhinoMocks" />
 		<property name="nuget.platforms" value="net-3.5,net-3.5-no-web,net-4.0,net-4.0-no-web,mono-2.0,mono-2.0-no-web,netcf-3.5" />
-		<property name="nuget.name" value="${product.name}.RhinoMock" />
+		<property name="nuget.name" value="${product.name}.RhinoMocks" />
 		<property name="nuget.releaseDirectory" value="${path.build}\${build.platform}\release" dynamic="true"/>
 		<property name="nuget.dependencies" value="Ninject.MockingKernel" />
 		<property name="nuget.additionalFiles" value="-" />
+		<property name="nuget.packageName" value="${nuget.name}${product.packagePostfix}.${build.version}" />	
+		<property name="nuget.symbol.basedir" value="${path.base}/build/nuget-rhinoMocks_symbol" />
+		<property name="nuget.project" value="${path.src}/${product.name}.RhinoMock/${product.name}.RhinoMocks.csproj" />
 		
 		<call target="nuget-run"/>
 	</target>	

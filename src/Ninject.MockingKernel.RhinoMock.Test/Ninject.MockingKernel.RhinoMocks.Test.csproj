@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ninject.MockingKernel.RhinoMock</RootNamespace>
-    <AssemblyName>Ninject.MockingKernel.RhinoMock.Test</AssemblyName>
+    <AssemblyName>Ninject.MockingKernel.RhinoMocks.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ninject.MockingKernel.RhinoMock</RootNamespace>
-    <AssemblyName>Ninject.MockingKernel.RhinoMock</AssemblyName>
+    <AssemblyName>Ninject.MockingKernel.RhinoMocks</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -32,7 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\build\release\RhinoMocks\Ninject.MockingKernel.RhinoMock.XML</DocumentationFile>
+    <DocumentationFile>..\..\build\release\RhinoMocks\Ninject.MockingKernel.RhinoMocks.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
