@@ -21,9 +21,10 @@
 
 namespace Ninject.MockingKernel
 {
-    using Xunit;
-    using Xunit.Should;
+    using FluentAssertions;
 
+    using Xunit;
+    
     /// <summary>
     /// Abstract test base for testing mocking kernel implementations
     /// </summary>
@@ -51,7 +52,7 @@ namespace Ninject.MockingKernel
                 var firstReference = kernel.Get<IDummyService>();
                 var secondReference = kernel.Get<IDummyService>();
 
-                firstReference.ShouldBeSameAs(secondReference);
+                firstReference.Should().BeSameAs(secondReference);
             }
         }
 
@@ -65,7 +66,7 @@ namespace Ninject.MockingKernel
             {
                 var instance = kernel.Get<DummyClass>();
 
-                instance.ShouldNotBeNull();
+                instance.Should().NotBeNull();
             }
         }
 
@@ -80,7 +81,7 @@ namespace Ninject.MockingKernel
                 var instance1 = kernel.Get<DummyClass>();
                 var instance2 = kernel.Get<DummyClass>();
 
-                instance1.ShouldBeSameAs(instance2);
+                instance1.Should().BeSameAs(instance2);
             }
         }
 
