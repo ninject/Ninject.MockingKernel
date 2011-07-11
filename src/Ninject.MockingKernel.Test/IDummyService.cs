@@ -1,5 +1,5 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MoqModule.cs" company="bbv Software Services AG">
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IDummyService.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //
@@ -19,24 +19,16 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Ninject.MockingKernel.Moq
+namespace Ninject.MockingKernel
 {
-    using Ninject.Modules;
-
     /// <summary>
-    /// The module for moq
+    /// A dummy interface
     /// </summary>
-    public class MoqModule : NinjectModule
+    public interface IDummyService
     {
         /// <summary>
-        /// Loads the module into the kernel.
+        /// A dummy method.
         /// </summary>
-        public override void Load()
-        {
-            this.Kernel.Components.Add<IMockProviderCallbackProvider, MoqMockProvider>();
-#if !SILVERLIGHT_30 && !SILVERLIGHT_20 && !NETCF
-            this.Kernel.Components.Add<IMockRepositoryProvider, DefaultMockRepositoryProvider>();
-#endif
-        }
+        void Do();
     }
 }

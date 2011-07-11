@@ -22,6 +22,8 @@
 namespace Ninject.MockingKernel.Moq
 {
     using System;
+    using System.Reflection;
+
     using global::Moq;
     using Ninject.Activation;
     using Ninject.Components;
@@ -32,6 +34,28 @@ namespace Ninject.MockingKernel.Moq
     /// </summary>
     public class MoqMockProvider : NinjectComponent, IProvider, IMockProviderCallbackProvider
     {
+#if !SILVERLIGHT_30 && !SILVERLIGHT_20 && !NETCF
+        /// <summary>
+        /// The mock repository provider used to create mock instances.
+        /// </summary>
+        private readonly MockRepository mockRepository;
+
+        /// <summary>
+        /// The method info used to create mock instances.
+        /// </summary>
+        private readonly MethodInfo createMethod;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MoqMockProvider"/> class.
+        /// </summary>
+        /// <param name="mockRepositoryProvider">The mock repository provider used to create mock instances.</param>
+        public MoqMockProvider(IMockRepositoryProvider mockRepositoryProvider)
+        {
+            this.mockRepository = mockRepositoryProvider.Instance;
+            this.createMethod = mockRepositoryProvider.CreateMethod;
+        }
+#endif
+
         /// <summary>
         /// Gets the type (or prototype) of instances the provider creates.
         /// </summary>
@@ -52,6 +76,21 @@ namespace Ninject.MockingKernel.Moq
             return ctx => this;
         }
 
+#if !SILVERLIGHT_30 && !SILVERLIGHT_20 && !NETCF
+        /// <summary>
+        /// Creates an instance within the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns>The created instance.</returns>
+        [System.Security.SecuritySafeCritical]
+        public object Create(IContext context)
+        {
+            var methodInfo = this.createMethod.MakeGenericMethod(context.Request.Service);
+            var mock = (Mock)methodInfo.Invoke(this.mockRepository, new object[0]);
+            return mock.Object;
+        }
+
+#else
         /// <summary>
         /// Creates an instance within the specified context.
         /// </summary>
@@ -62,10 +101,11 @@ namespace Ninject.MockingKernel.Moq
 #endif
         public object Create(IContext context)
         {
-            Type mockType = typeof(Mock<>).MakeGenericType(context.Request.Service);
-            var constructorInfo = mockType.GetConstructor(new Type[0]);
-            var mock = (Mock)constructorInfo.Invoke(new object[0]);
+            var mockType = typeof(Mock<>).MakeGenericType(context.Request.Service);
+            var constructorInfo = mockType.GetConstructor(new[] { typeof(MockBehavior) });
+            var mock = (Mock)constructorInfo.Invoke(new object[] { Settings.GetMockBehavior() });
             return mock.Object;
         }
+#endif
     }
 }

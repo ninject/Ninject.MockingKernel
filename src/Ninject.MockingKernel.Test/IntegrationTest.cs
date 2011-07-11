@@ -31,17 +31,6 @@ namespace Ninject.MockingKernel
     public abstract class IntegrationTest
     {
         /// <summary>
-        /// A dummy interface
-        /// </summary>
-        public interface IDummyService
-        {
-            /// <summary>
-            /// A dummy method.
-            /// </summary>
-            void Do();
-        }
-
-        /// <summary>
         /// Mocks are singletons.
         /// </summary>
         [Fact]

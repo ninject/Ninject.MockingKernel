@@ -20,5 +20,5 @@
 #if !SILVERLIGHT && !NETCF
 using System.Security;
 
-[assembly: AllowPartiallyTrustedCallers]
+//[assembly: AllowPartiallyTrustedCallers]
 #endif

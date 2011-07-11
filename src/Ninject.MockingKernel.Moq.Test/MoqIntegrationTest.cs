@@ -22,12 +22,44 @@
 namespace Ninject.MockingKernel.Moq
 {
     using global::Moq;
+    using Xunit;
 
     /// <summary>
     /// Integration test for the moq mocking kernel.
     /// </summary>
     public class MoqIntegrationTest : IntegrationTest
     {
+        /// <summary>
+        /// Mocks are loose by default
+        /// </summary>
+        [Fact]
+        public void MocksAreLooseByDefault()
+        {
+            using (var kernel = this.CreateKernel())
+            {
+                var mock = kernel.Get<IDummyService>();
+
+                Assert.DoesNotThrow(mock.Do);
+             }
+        }
+    
+        /// <summary>
+        /// Mocks are loose by default
+        /// </summary>
+        [Fact]
+        public void MocksAreStrictIfConfigured()
+        {
+            var settings = new NinjectSettings();
+            settings.SetMockBehavior(MockBehavior.Strict);
+
+            using (var kernel = new MoqMockingKernel(settings))
+            {
+                var mock = kernel.Get<IDummyService>();
+
+                Assert.Throws<MockException>(() => mock.Do());
+            }
+        }
+
         /// <summary>
         /// Creates the kernel.
         /// </summary>
@@ -36,7 +68,7 @@ namespace Ninject.MockingKernel.Moq
         {
             return new MoqMockingKernel();
         }
-
+        
         /// <summary>
         /// Asserts that do was called.
         /// </summary>
