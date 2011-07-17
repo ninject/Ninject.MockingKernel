@@ -21,7 +21,14 @@
 
 namespace Ninject.MockingKernel.Moq
 {
+    using System;
+    using System.Reflection;
+
+    using FluentAssertions;
     using global::Moq;
+
+    using Ninject.Components;
+
     using Xunit;
 
     /// <summary>
@@ -60,6 +67,25 @@ namespace Ninject.MockingKernel.Moq
             }
         }
 
+#if !SILVERLIGHT_30 && !SILVERLIGHT_20 && !NETCF
+        /// <summary>
+        /// Mocks are loose by default
+        /// </summary>
+        [Fact]
+        public void MockRepositoryCanBeAccessed()
+        {
+            using (var kernel = new MoqMockingKernel())
+            {
+                kernel.Components.RemoveAll<IMockRepositoryProvider>();
+                kernel.Components.Add<IMockRepositoryProvider, TestMockRepositoryProvider>();
+                var repository = new MockRepository(MockBehavior.Default);
+                TestMockRepositoryProvider.Repository = repository;
+
+                kernel.MockRepository.Should().BeSameAs(repository);
+            }
+        }
+#endif
+        
         /// <summary>
         /// Creates the kernel.
         /// </summary>
@@ -77,5 +103,28 @@ namespace Ninject.MockingKernel.Moq
         {
             Mock.Get(dummyService).Verify(service => service.Do());
         }
+
+#if !SILVERLIGHT_30 && !SILVERLIGHT_20 && !NETCF
+        public class TestMockRepositoryProvider : NinjectComponent, IMockRepositoryProvider
+        {
+            public static MockRepository Repository { get; set; }
+
+            public MockRepository Instance
+            {
+                get
+                {
+                    return Repository;
+                }
+            }
+
+            public MethodInfo CreateMethod
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+        }
+#endif
     }
 }

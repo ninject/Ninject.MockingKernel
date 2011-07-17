@@ -48,6 +48,20 @@ namespace Ninject.MockingKernel.Moq
             this.Load(new MoqModule());
         }
 
+#if !SILVERLIGHT_30 && !SILVERLIGHT_20 && !NETCF
+        /// <summary>
+        /// Gets the mock repository.
+        /// </summary>
+        /// <value>The mock repository.</value>
+        public MockRepository MockRepository
+        {
+            get
+            {
+                return this.Components.Get<IMockRepositoryProvider>().Instance;
+            }
+        }
+#endif
+
         /// <summary>
         /// Gets the mock.
         /// </summary>
