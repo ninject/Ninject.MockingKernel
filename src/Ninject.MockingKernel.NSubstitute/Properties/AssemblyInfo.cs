@@ -19,7 +19,7 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-#if !SILVERLIGHT && !NETCF
+#if !SILVERLIGHT && !NETCF && !NO_PARTIAL_TRUST
 using System.Security;
 
 [assembly: AllowPartiallyTrustedCallers]
