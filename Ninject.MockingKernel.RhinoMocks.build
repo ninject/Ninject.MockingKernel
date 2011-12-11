@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project name="Ninject" default="build">
-	<target name="buildRhinoMocks" unless="${string::contains(build.platform, 'silverlight')}">
+	<target name="buildRhinoMocks" unless="${string::contains(build.platform, 'silverlight') or string::contains(build.platform, 'mono')}">
 		<property name="product.assembly.rhinomock" value="${product.name}.RhinoMock.dll" overwrite="false"/>
 		<property name="product.docfile.rhinomock" value="${product.name}.RhinoMock.xml" overwrite="false"/>
 		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
@@ -33,7 +33,7 @@
 	<target name="nuget-RhinoMocks">
 		<property name="nuget.sourcedir" value="${path.base}/nuget-rhinoMocks" />
 		<property name="nuget.basedir" value="${path.base}/build/nuget-rhinoMocks" />
-		<property name="nuget.platforms" value="net-3.5,net-4.0,mono-2.0,mono-2.0-no-web,netcf-3.5" />
+		<property name="nuget.platforms" value="net-3.5,net-4.0,netcf-3.5" />
 		<property name="nuget.name" value="${product.name}.RhinoMocks" />
 		<property name="nuget.releaseDirectory" value="${path.build}\${build.platform}\release" dynamic="true"/>
 		<property name="nuget.dependencies" value="Ninject.MockingKernel" />
