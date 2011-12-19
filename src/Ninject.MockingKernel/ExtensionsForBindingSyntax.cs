@@ -21,7 +21,6 @@
 
 namespace Ninject.MockingKernel
 {
-    using Ninject.Planning.Bindings;
     using Ninject.Syntax;
 
     /// <summary>
@@ -37,8 +36,8 @@ namespace Ninject.MockingKernel
         /// <returns>The syntax for adding more information to the binding.</returns>
         public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> builder)
         {
-            IBinding binding = builder.Binding;
-            binding.ProviderCallback = builder.Kernel.Components.Get<IMockProviderCallbackProvider>().GetCreationCallback();
+            var bindingConfiguration = builder.BindingConfiguration;
+            bindingConfiguration.ProviderCallback = builder.Kernel.Components.Get<IMockProviderCallbackProvider>().GetCreationCallback();
             return builder as IBindingWhenInNamedWithOrOnSyntax<T>;
         }
     }
