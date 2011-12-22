@@ -37,10 +37,11 @@
 		<property name="nuget.releaseDirectory" value="${path.build}\${build.platform}\release" dynamic="true"/>
 		<property name="nuget.dependencies" value="Ninject.MockingKernel" />
 		<property name="nuget.additionalFiles" value="-" />
-		<property name="nuget.packageName" value="${nuget.name}${product.packagePostfix}.${build.version}" />	
+		<property name="nuget.packageName" value="${nuget.name}${product.packagePostfix}" />	
 		<property name="nuget.symbol.basedir" value="${path.base}/build/nuget-NSubstitute_symbol" />
 		<property name="nuget.project" value="${path.src}/${product.name}.NSubstitute/${product.name}.NSubstitute.csproj" />
 		
+		<msbuild project="${nuget.project}" />
 		<call target="nuget-run"/>
 	</target>	
 </project>
