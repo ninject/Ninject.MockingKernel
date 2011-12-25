@@ -109,6 +109,9 @@
     <Compile Include="..\Ninject.MockingKernel.RhinoMock.Test\RhinoMocksIntegrationTest.cs">
       <Link>RhinoMocksIntegrationTest.cs</Link>
     </Compile>
+    <Compile Include="..\Ninject.MockingKernel.Test\IDummyService.cs">
+      <Link>IDummyService.cs</Link>
+    </Compile>
     <Compile Include="..\Ninject.MockingKernel.Test\IntegrationTest.cs">
       <Link>IntegrationTest.cs</Link>
     </Compile>
