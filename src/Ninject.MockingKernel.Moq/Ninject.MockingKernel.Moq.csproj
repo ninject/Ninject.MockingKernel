@@ -64,6 +64,7 @@
     <Compile Include="MoqMockProvider.cs" />
     <Compile Include="MoqModule.cs" />
     <Compile Include="NinjectSettingsExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ninject.MockingKernel\Ninject.MockingKernel.csproj">

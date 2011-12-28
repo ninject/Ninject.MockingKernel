@@ -19,8 +19,12 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-#if !SILVERLIGHT && !NETCF && !NO_PARTIAL_TRUST
+using System.Reflection;
 using System.Security;
 
+#if !SILVERLIGHT && !NETCF && !NO_PARTIAL_TRUST
 [assembly: AllowPartiallyTrustedCallers]
 #endif
+
+[assembly: AssemblyTitleAttribute("Automocking for NSubstitute")]
+[assembly: AssemblyDescriptionAttribute("Automock implementation for NSubstitute using Ninject to create the objects under test.")]

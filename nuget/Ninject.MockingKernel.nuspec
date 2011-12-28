@@ -7,7 +7,6 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
 	<licenseUrl>https://github.com/ninject/ninject.mockingkernel/raw/master/LICENSE.txt</licenseUrl>
     <description>Automock implementation using Ninject to create the objects under test.</description>
-    <summary></summary>
     <language>en-US</language>
 	<tags>Ninject ioc di automock</tags>
 	<iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
