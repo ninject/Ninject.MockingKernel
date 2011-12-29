@@ -42,7 +42,7 @@
 		<call target="CopyDefaultTestInfrastructureAssemblies"/>
 
 		<property name="product.assembly.rhinomock" value="a.dll" if="${string::contains(build.platform, 'mono')}"/>
-		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
+		<csc noconfig="true" warnaserror="false" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
 		 output="${current.path.test}/${product.assembly.test}">
 			<sources basedir="${path.src}">
 				<include name="${product.name}.Test/**/*.cs"/>
