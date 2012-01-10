@@ -5,8 +5,8 @@
 	<property name="product.company" value="bbv Software Services AG" overwrite="false"/>
 	<property name="product.duration" value="2009-2011" overwrite="false"/>
 	<property name="product.description" value="Auto mocking kernel based on Ninject" overwrite="false"/>
-	<property name="product.platforms" value="net-3.5,net-4.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,netcf-3.5"  overwrite="false"/>
-	<property name="product.buildserverPlatforms" value="net-3.5,net-4.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,netcf-3.5"  overwrite="false"/>
+	<property name="product.platforms" value="net-3.5,net-4.0,net-4.5,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,netcf-3.5"  overwrite="false"/>
+	<property name="product.buildserverPlatforms" value="net-3.5,net-4.0,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,netcf-3.5"  overwrite="false"/>
 	<property name="product.clsCompliant" value="false" overwrite="false"/>
 	<property name="dependencies" value="Ninject"  overwrite="false"/>
 
@@ -21,7 +21,7 @@
 	<target name="core" depends="init buildCore buildMoq buildRhinoMocks buildNSubstitute" />
 
 	<target name="buildCore" depends="init">
-		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
+		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 			 output="${current.path.build}/${product.assembly}" doc="${current.path.build}/${product.docfile}" keyfile="${path.src}/${product.keyfile}">
 			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
 			<sources basedir="${path.src}">
@@ -42,7 +42,7 @@
 		<call target="CopyDefaultTestInfrastructureAssemblies"/>
 
 		<property name="product.assembly.rhinomock" value="a.dll" if="${string::contains(build.platform, 'mono')}"/>
-		<csc noconfig="true" warnaserror="false" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
+		<csc noconfig="true" nostdlib="true" warnaserror="false" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
 		 output="${current.path.test}/${product.assembly.test}">
 			<sources basedir="${path.src}">
 				<include name="${product.name}.Test/**/*.cs"/>
@@ -78,7 +78,7 @@
 		<mkdir dir="${current.path.test}"/>
 		<call target="CopyDefaultTestInfrastructureAssemblies-SL"/>
 
-		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
+		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
 		 output="${current.path.test}/${product.assembly.silverlighttestdll}">
 			<sources basedir="${path.src}">
 				<include name="${product.name}.Test/**/*.cs"/>
@@ -99,9 +99,9 @@
 				<include name="Microsoft.Phone.dll" if="${string::contains(build.platform, 'wp7')}"/>
 				<include name="Microsoft.Phone.Interop.dll" if="${string::contains(build.platform, 'wp7')}"/>
 				<include name="Moq.Silverlight.dll" unless="${string::contains(build.platform, 'wp7')}"/>
-				<include name="Castle.Core.dll" if="${build.platform == 'silverlight-4.0'}"/>
-				<include name="Castle.Core-Silverlight.dll" unless="${string::contains(build.platform, 'silverlight-4.0')}"/>
-				<include name="Castle.DynamicProxy-Silverlight.dll" unless="${string::contains(build.platform, 'silverlight-4.0')}"/>
+				<include name="Castle.Core.dll" if="${string::contains(build.platform, 'silverlight-4.0') or string::contains(build.platform, 'silverlight-5.0')}"/>
+				<include name="Castle.Core-Silverlight.dll" unless="${string::contains(build.platform, 'silverlight-4.0') or string::contains(build.platform, 'silverlight-5.0')}"/>
+				<include name="Castle.DynamicProxy-Silverlight.dll" unless="${build.platform == 'silverlight-4.0' or build.platform == 'silverlight-5.0'}"/>
 				<include name="xunit.runner.silverlight.dll"/>
 				<include name="xunit-silverlight.dll"/>
 				<include name="Rhino.Mocks 3.5.Silverlight.dll"/>

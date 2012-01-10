@@ -11,7 +11,7 @@
 				<include name="**/*.xml"/>
 			</fileset>
 		</copy>
-		<csc noconfig="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
+		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 			 output="${current.path.build}/${product.assembly.rhinomock}" doc="${current.path.build}/${product.docfile.rhinomock}" keyfile="${path.src}/${product.keyfile}">
 			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
 			<sources basedir="${path.src}">
@@ -33,7 +33,7 @@
 	<target name="nuget-RhinoMocks">
 		<property name="nuget.sourcedir" value="${path.base}/nuget-rhinoMocks" />
 		<property name="nuget.basedir" value="${path.base}/build/nuget-rhinoMocks" />
-		<property name="nuget.platforms" value="net-3.5,net-4.0,netcf-3.5" />
+		<property name="nuget.platforms" value="net-3.5,net-4.0,net-4.5,netcf-3.5" />
 		<property name="nuget.name" value="${product.name}.RhinoMocks" />
 		<property name="nuget.releaseDirectory" value="${path.build}\${build.platform}\release" dynamic="true"/>
 		<property name="nuget.dependencies" value="Ninject.MockingKernel" />
