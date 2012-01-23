@@ -5,8 +5,8 @@
 	<property name="product.company" value="bbv Software Services AG" overwrite="false"/>
 	<property name="product.duration" value="2009-2011" overwrite="false"/>
 	<property name="product.description" value="Auto mocking kernel based on Ninject" overwrite="false"/>
-	<property name="product.platforms" value="net-3.5,net-4.0,net-4.5,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,netcf-3.5"  overwrite="false"/>
-	<property name="product.buildserverPlatforms" value="net-3.5,net-4.0,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,netcf-3.5"  overwrite="false"/>
+	<property name="product.platforms" value="net-3.5,net-4.0,net-4.5,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,mono-3.5,mono-4.0,netcf-3.5"  overwrite="false"/>
+	<property name="product.buildserverPlatforms" value="net-3.5,net-4.0,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,mono-3.5,mono-4.0,netcf-3.5"  overwrite="false"/>
 	<property name="product.clsCompliant" value="false" overwrite="false"/>
 	<property name="dependencies" value="Ninject"  overwrite="false"/>
 
