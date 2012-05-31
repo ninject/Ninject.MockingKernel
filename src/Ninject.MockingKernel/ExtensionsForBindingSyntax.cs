@@ -34,11 +34,13 @@ namespace Ninject.MockingKernel
         /// <typeparam name="T">The service that is being mocked.</typeparam>
         /// <param name="builder">The builder that is building the binding.</param>
         /// <returns>The syntax for adding more information to the binding.</returns>
-        public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> binding) {
+        public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> binding) 
+        {
             return binding.ToMethod(CreateMockObject<T>);
         }
 
-        private static T CreateMockObject<T>(IContext ctx) {
+        private static T CreateMockObject<T>(IContext ctx) 
+        {
             IMockProviderCallbackProvider callBackProvider =
                     ctx.Kernel.Components.Get<IMockProviderCallbackProvider>();
             IProvider factory = callBackProvider.GetCreationCallback().Invoke(ctx);
@@ -54,7 +56,8 @@ namespace Ninject.MockingKernel
         /// <typeparam name="T">The service that is being mocked.</typeparam>
         /// <param name="builder">The builder that is building the binding.</param>
         /// <returns>The syntax for adding more information to the binding.</returns>
-        public static IBindingNamedWithOrOnSyntax<T> ToMockSingleton<T>(this IBindingToSyntax<T> binding) {
+        public static IBindingNamedWithOrOnSyntax<T> ToMockSingleton<T>(this IBindingToSyntax<T> binding) 
+        {
             return binding.ToMock().InSingletonScope();
         }
     }
