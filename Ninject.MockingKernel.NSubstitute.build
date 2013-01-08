@@ -41,6 +41,7 @@
 		<property name="nuget.symbol.basedir" value="${path.base}/build/nuget-NSubstitute_symbol" />
 		<property name="nuget.project" value="${path.src}/${product.name}.NSubstitute/${product.name}.NSubstitute.csproj" />
 		
+		<property name="nant.settings.currentframework" value="net-4.0"/>
 		<msbuild project="${nuget.project}" />
 		<call target="nuget-run"/>
 	</target>	
