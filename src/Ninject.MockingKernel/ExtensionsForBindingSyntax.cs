@@ -34,11 +34,31 @@ namespace Ninject.MockingKernel
         /// <typeparam name="T">The service that is being mocked.</typeparam>
         /// <param name="builder">The builder that is building the binding.</param>
         /// <returns>The syntax for adding more information to the binding.</returns>
-        public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> builder)
+        public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> builder) 
         {
-            var bindingConfiguration = builder.BindingConfiguration;
-            bindingConfiguration.ProviderCallback = builder.Kernel.Components.Get<IMockProviderCallbackProvider>().GetCreationCallback();
-            return builder as IBindingWhenInNamedWithOrOnSyntax<T>;
+            return builder.ToMethod(CreateMockObject<T>);
+        }
+
+        private static T CreateMockObject<T>(IContext ctx) 
+        {
+            IMockProviderCallbackProvider callBackProvider =
+                    ctx.Kernel.Components.Get<IMockProviderCallbackProvider>();
+            IProvider factory = callBackProvider.GetCreationCallback().Invoke(ctx);
+            return (T)factory.Create(ctx);
+        }
+
+        /// <summary>
+        /// Convenient method for indicating mocking for the specified service type and making the mocking object singleton.
+        /// </summary>
+        /// <remarks>
+        /// Important note: If you use this method, make sure to reset the kernel each time as objects won't be recreated otherwise.
+        /// </remarks>
+        /// <typeparam name="T">The service that is being mocked.</typeparam>
+        /// <param name="builder">The builder that is building the binding.</param>
+        /// <returns>The syntax for adding more information to the binding.</returns>
+        public static IBindingNamedWithOrOnSyntax<T> ToMockSingleton<T>(this IBindingToSyntax<T> builder) 
+        {
+            return builder.ToMock().InSingletonScope();
         }
     }
 }
