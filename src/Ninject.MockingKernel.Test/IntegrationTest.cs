@@ -46,6 +46,23 @@ namespace Ninject.MockingKernel
         }
 
         /// <summary>
+        /// The ToMock extension can be used to configure mocks.
+        /// </summary>
+        [Fact]
+        public void ToMockCanBeUsedToConfigureMocks()
+        {
+            using (var kernel = this.CreateKernel())
+            {
+                kernel.Bind<IDummyService>().ToMock().InTransientScope();
+
+                var mock1 = kernel.Get<IDummyService>();
+                var mock2 = kernel.Get<IDummyService>();
+
+                mock1.Should().NotBeSameAs(mock2);
+            }
+        }
+
+        /// <summary>
         /// Reals the objects are created for auto bindable types.
         /// </summary>
         [Fact]

@@ -85,7 +85,7 @@ namespace Ninject.MockingKernel.Moq
             }
         }
 #endif
-        
+       
         /// <summary>
         /// Creates the kernel.
         /// </summary>

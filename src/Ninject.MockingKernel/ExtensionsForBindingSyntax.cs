@@ -36,9 +36,12 @@ namespace Ninject.MockingKernel
         /// <returns>The syntax for adding more information to the binding.</returns>
         public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> builder)
         {
+            var result = builder.To<T>();
+
             var bindingConfiguration = builder.BindingConfiguration;
             bindingConfiguration.ProviderCallback = builder.Kernel.Components.Get<IMockProviderCallbackProvider>().GetCreationCallback();
-            return builder as IBindingWhenInNamedWithOrOnSyntax<T>;
+
+            return result;
         }
     }
 }
