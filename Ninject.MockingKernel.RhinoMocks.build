@@ -3,14 +3,14 @@
 	<target name="buildRhinoMocks" unless="${string::contains(build.platform, 'silverlight') or string::contains(build.platform, 'mono')}">
 		<property name="product.assembly.rhinomock" value="${product.name}.RhinoMock.dll" overwrite="false"/>
 		<property name="product.docfile.rhinomock" value="${product.name}.RhinoMock.xml" overwrite="false"/>
-		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/net-3.5" unless="${string::contains(build.platform, 'silverlight')}" />
-		<property name="current.path.lib.rhinomocks" value="${path.lib}/RhinoMocks/silverlight" if="${string::contains(build.platform, 'silverlight')}" />
+
 		<copy todir="${current.path.build}/lib">
-			<fileset basedir="${current.path.lib.rhinomocks}">
-				<include name="**/*.dll"/>
-				<include name="**/*.xml"/>
+			<fileset basedir="${path.packages}">
+				<include name="RhinoMocks.*/lib/net/**/*.dll"/>
+				<include name="RhinoMocks.*/lib/net/**/*.xml"/>
 			</fileset>
 		</copy>
+		
 		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 			 output="${current.path.build}/${product.assembly.rhinomock}" doc="${current.path.build}/${product.docfile.rhinomock}" keyfile="${path.src}/${product.keyfile}">
 			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
@@ -24,8 +24,7 @@
 				<include name="System.Core.dll"/>
 				<include name="${current.path.build}/${product.assembly}"/>
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
-				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks.dll" unless="${string::contains(build.platform, 'silverlight')}"/>
-				<include name="${current.path.lib.rhinomocks}/Rhino.Mocks 3.5.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
+				<include name="${path.packages}/RhinoMocks.*/lib/net/Rhino.Mocks.dll"/>
 			</references>
 		</csc>	
 	</target>

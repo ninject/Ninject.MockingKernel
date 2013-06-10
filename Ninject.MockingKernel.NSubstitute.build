@@ -3,13 +3,18 @@
 	<target name="buildNSubstitute" unless="${string::contains(build.platform, 'silverlight')}">
 		<property name="product.assembly.nsubstitute" value="${product.name}.NSubstitute.dll" overwrite="false"/>
 		<property name="product.docfile.nsubstitute" value="${product.name}.NSubstitute.xml" overwrite="false"/>
-		<property name="current.path.lib.nsubstitute" value="${path.lib}/NSubstitute/net-3.5" />		
+		
+		<property name="packagepath.nsubstitute" value="NSubstitute.*/lib/NET35" unless="${string::contains(build.platform, 'net-4.')}"/>		
+		<property name="packagepath.nsubstitute" value="NSubstitute.*/lib/NET40" if="${string::contains(build.platform, 'net-4.')}"/>	
+		<property name="current.path.lib.nsubstitute" value="${path.packages}/${packagepath.nsubstitute}"/>
+		
 		<copy todir="${current.path.build}/lib">
-			<fileset basedir="${current.path.lib.nsubstitute}">
-				<include name="**/*.dll"/>
-				<include name="**/*.xml"/>
+			<fileset basedir="${path.packages}">
+				<include name="${packagepath.nsubstitute}/**/*.dll"/>
+				<include name="${packagepath.nsubstitute}/**/*.xml"/>
 			</fileset>
 		</copy>
+		
 		<csc noconfig="true" nostdlib="true" warnaserror="false" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 			 output="${current.path.build}/${product.assembly.nsubstitute}" doc="${current.path.build}/${product.docfile.nsubstitute}" keyfile="${path.src}/${product.keyfile}">
 			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>

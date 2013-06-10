@@ -3,14 +3,16 @@
 	<target name="buildMoq">
 		<property name="product.assembly.moq" value="${product.name}.Moq.dll" overwrite="false"/>
 		<property name="product.docfile.moq" value="${product.name}.Moq.xml" overwrite="false"/>
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/net35" unless="${string::contains(build.platform, 'silverlight') or string::contains(build.platform, 'net-4.')}"/>
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/net40" unless="${string::contains(build.platform, 'silverlight')}" if="${string::contains(build.platform, 'net-4.')}"/>
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight3" if="${string::contains(build.platform, 'silverlight')}" unless="${string::contains(build.platform, 'silverlight-4.0') or string::contains(build.platform, 'silverlight-5.0')}" />
-		<property name="current.path.lib.moq" value="${path.lib}/Moq/silverlight4" if="${string::contains(build.platform, 'silverlight-4.0') or string::contains(build.platform, 'silverlight-5.0')}" />
-		<copy todir="${current.path.build}/lib">
-			<fileset basedir="${current.path.lib.moq}">
-				<include name="**/*.dll"/>
-				<include name="**/*.xml"/>
+		
+		<property name="packagepath.moq" value="Moq.*/lib/NET35" unless="${string::contains(build.platform, 'silverlight') or string::contains(build.platform, 'net-4.')}"/>
+		<property name="packagepath.moq" value="Moq.*/lib/NET40" unless="${string::contains(build.platform, 'silverlight')}" if="${string::contains(build.platform, 'net-4.')}"/>
+		<property name="packagepath.moq" value="Moq.*/lib/Silverlight4" if="${string::contains(build.platform, 'silverlight')}" />
+		<property name="current.path.lib.moq" value="${path.packages}/${packagepath.moq}"/>
+		
+		<copy todir="${path.packages}/lib">
+			<fileset basedir="${path.packages}">
+				<include name="${packagepath.moq}/*.dll"/>
+				<include name="${packagepath.moq}/*.xml"/>
 			</fileset>
 		</copy>
 		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 

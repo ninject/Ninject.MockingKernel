@@ -36,7 +36,7 @@
       <HintPath>..\..\lib\Ninject\net-3.5\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
-      <HintPath>..\..\lib\NSubstitute\net-3.5\NSubstitute.dll</HintPath>
+      <HintPath>..\..\packages\NSubstitute.1.5.0.0\lib\NET35\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,6 +62,9 @@
       <Project>{C0CFA4C0-1B4D-4011-94F2-7DB1CF98D67D}</Project>
       <Name>Ninject.MockingKernel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
