@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19E2834E-3CD3-420D-ADE1-FC9A75E67E04}"
 	ProjectSection(SolutionItems) = preProject
 		README.markdown = README.markdown
@@ -21,6 +23,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.NSubstitute", "src\Ninject.MockingKernel.NSubstitute\Ninject.MockingKernel.NSubstitute.csproj", "{5C36A6ED-BFD9-4181-96ED-FED4D0E1E6F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.NSubstitute.Test", "src\Ninject.MockingKernel.NSubstitute.Test\Ninject.MockingKernel.NSubstitute.Test.csproj", "{DFCD85F9-31D7-4DDF-BEBE-5287B727AF37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nuspecs", "nuspecs", "{559AB248-B7F5-4CB7-BF68-49A7782DE67B}"
+	ProjectSection(SolutionItems) = preProject
+		nuget-moq\Ninject.MockingKernel.Moq.nuspec = nuget-moq\Ninject.MockingKernel.Moq.nuspec
+		nuget-NSubstitute\Ninject.MockingKernel.NSubstitute.nuspec = nuget-NSubstitute\Ninject.MockingKernel.NSubstitute.nuspec
+		nuget-RhinoMocks\Ninject.MockingKernel.RhinoMock.nuspec = nuget-RhinoMocks\Ninject.MockingKernel.RhinoMock.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
