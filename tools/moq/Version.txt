@@ -1,2 +1,2 @@
-Version 4.0.10827
+Version 4.2.1402.2112
 Note: The Silverlight 3 directory has version 3.5.716.1, the last version with Silverlight 3 support.
