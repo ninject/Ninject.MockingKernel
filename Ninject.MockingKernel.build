@@ -5,8 +5,8 @@
 	<property name="product.company" value="bbv Software Services AG" overwrite="false"/>
 	<property name="product.duration" value="2009-2011" overwrite="false"/>
 	<property name="product.description" value="Auto mocking kernel based on Ninject" overwrite="false"/>
-	<property name="product.platforms" value="net-3.5,net-4.0,net-4.5,silverlight-5.0,silverlight-4.0,mono-2.0,mono-3.5,mono-4.0,netcf-3.5"  overwrite="false"/>
-	<property name="product.buildserverPlatforms" value="net-3.5,net-4.0,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-2.0,mono-3.5,mono-4.0,netcf-3.5"  overwrite="false"/>
+	<property name="product.platforms" value="net-3.5,net-4.0,net-4.5,silverlight-5.0,silverlight-4.0,mono-3.5,mono-4.0,netcf-3.5"  overwrite="false"/>
+	<property name="product.buildserverPlatforms" value="net-3.5,net-4.0,silverlight-5.0,silverlight-4.0,silverlight-3.0,silverlight-2.0,mono-3.5,mono-4.0,netcf-3.5"  overwrite="false"/>
 	<property name="product.clsCompliant" value="false" overwrite="false"/>
 	<property name="dependencies" value="Ninject"  overwrite="false"/>
 
@@ -23,8 +23,10 @@
 	<target name="buildCore" depends="init">
 		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 			 output="${current.path.build}/${product.assembly}" doc="${current.path.build}/${product.docfile}" keyfile="${path.src}/${product.keyfile}">
-			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
-			<sources basedir="${path.src}">
+		<arg line="/filealign:512"/>
+      <arg value="-sdk:2" if="${string::contains(build.platform, 'mono-3.5')}"/>
+      <arg value="-sdk:4" if="${string::contains(build.platform, 'mono-4.0')}"/>
+				<sources basedir="${path.src}">
 				<include name="${build.asminfo}"/>
 				<include name="${product.name}/**/*.cs"/>
 			</sources>
@@ -44,6 +46,8 @@
 		<property name="product.assembly.rhinomock" value="a.dll" if="${string::contains(build.platform, 'mono')}"/>
 		<csc noconfig="true" nostdlib="true" warnaserror="false" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}"
 		 output="${current.path.test}/${product.assembly.test}">
+      <arg value="-sdk:2" if="${string::contains(build.platform, 'mono-3.5')}"/>
+      <arg value="-sdk:4" if="${string::contains(build.platform, 'mono-4.0')}"/>
 			<sources basedir="${path.src}">
 				<include name="${product.name}.Test/**/*.cs"/>
 				<include name="${product.name}.Moq.Test/**/*.cs"/>
