@@ -17,7 +17,7 @@
 		</copy>
 		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 			 output="${current.path.build}/${product.assembly.moq}" doc="${current.path.build}/${product.docfile.moq}" keyfile="${path.src}/${product.keyfile}">
-			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
+			<arg line="/filealign:512"/>
 			<sources basedir="${path.src}">
 				<include name="${build.asminfo}"/>
 				<include name="${product.name}.Moq/**/*.cs"/>

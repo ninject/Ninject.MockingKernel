@@ -17,7 +17,7 @@
 		
 		<csc noconfig="true" nostdlib="true" warnaserror="false" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
 			 output="${current.path.build}/${product.assembly.nsubstitute}" doc="${current.path.build}/${product.docfile.nsubstitute}" keyfile="${path.src}/${product.keyfile}">
-			<arg line="/filealign:512" unless="${nant.settings.currentframework == 'mono-2.0'}"/>
+			<arg line="/filealign:512"/>
 			<sources basedir="${path.src}">
 				<include name="${build.asminfo}"/>
 				<include name="${product.name}.NSubstitute/**/*.cs"/>
@@ -37,7 +37,7 @@
 	<target name="nuget-NSubstitute">
 		<property name="nuget.sourcedir" value="${path.base}/nuget-NSubstitute" />
 		<property name="nuget.basedir" value="${path.base}/build/nuget-NSubstitute" />
-		<property name="nuget.platforms" value="net-3.5,net-4.0,net-4.5,mono-2.0,netcf-3.5" />
+		<property name="nuget.platforms" value="net-3.5,net-4.0,net-4.5,netcf-3.5" />
 		<property name="nuget.name" value="${product.name}.NSubstitute" />
 		<property name="nuget.releaseDirectory" value="${path.build}\${build.platform}\release" dynamic="true"/>
 		<property name="nuget.dependencies" value="Ninject.MockingKernel" />
