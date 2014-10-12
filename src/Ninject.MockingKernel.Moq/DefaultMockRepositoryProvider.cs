@@ -45,6 +45,11 @@ namespace Ninject.MockingKernel.Moq
         private MethodInfo createMethod;
 
         /// <summary>
+        /// Gets the method info of the add additional interface method.
+        /// </summary>
+        private MethodInfo addAdditionalInterfaceMethod;
+
+        /// <summary>
         /// Gets the instance of the mock repository.
         /// </summary>
         /// <value>The instance of the mock repository.</value>
@@ -75,6 +80,23 @@ namespace Ninject.MockingKernel.Moq
                 }
 
                 return this.createMethod;
+            }
+        }
+
+        /// <summary>
+        /// Gets the method info of the add additional interface method.
+        /// </summary>
+        /// <value>The method info of the add additional interface method.</value>
+        public MethodInfo AddAdditionalInterfaceMethod
+        {
+            get
+            {
+                if (this.addAdditionalInterfaceMethod == null)
+                {
+                    this.addAdditionalInterfaceMethod = typeof(Mock).GetMethod("As");
+                }
+
+                return this.addAdditionalInterfaceMethod;
             }
         }
     }

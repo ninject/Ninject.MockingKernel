@@ -22,6 +22,7 @@
 namespace Ninject.MockingKernel.NSubstitute
 {
     using System;
+    using System.Linq;
     using Activation;
     using Components;
     using global::NSubstitute;
@@ -61,7 +62,9 @@ namespace Ninject.MockingKernel.NSubstitute
         /// </returns>
         public object Create(IContext context)
         {
-            return Substitute.For(new[] { context.Request.Service }, null);
+            var additionalInterfaces = context.Parameters.OfType<AdditionalInterfaceParameter>().Select(ai => (Type)ai.GetValue(context, null));
+
+            return Substitute.For(new[] { context.Request.Service }.Concat(additionalInterfaces).ToArray(), null);
         }
     }
 }

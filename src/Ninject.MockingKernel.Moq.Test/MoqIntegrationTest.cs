@@ -124,6 +124,14 @@ namespace Ninject.MockingKernel.Moq
                     throw new NotImplementedException();
                 }
             }
+
+            public MethodInfo AddAdditionalInterfaceMethod
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
         }
 #endif
     }
