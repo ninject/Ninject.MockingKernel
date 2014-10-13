@@ -35,21 +35,6 @@ namespace Ninject.MockingKernel.RhinoMock
     /// </summary>
     public class RhinoMocksMockProvider : NinjectComponent, IProvider, IMockProviderCallbackProvider
     {
-#if SILVERLIGHT
-        /// <summary>
-        /// The method info for creation mocks.
-        /// </summary>
-        private readonly MethodInfo generateMockMethodInfo;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RhinoMocksMockProvider"/> class.
-        /// </summary>
-        public RhinoMocksMockProvider()
-        {
-            this.generateMockMethodInfo = typeof(MockRepository).GetMethod("GenerateMock");
-        }
-#endif
-
         /// <summary>
         /// Gets the type (or prototype) of instances the provider creates.
         /// </summary>
@@ -68,11 +53,9 @@ namespace Ninject.MockingKernel.RhinoMock
         /// <returns>The created instance.</returns>
         public object Create(IContext context)
         {
-#if !SILVERLIGHT
-            return MockRepository.GenerateMock(context.Request.Service, new Type[0], new object[0]);
-#else
-            return this.generateMockMethodInfo.MakeGenericMethod(context.Request.Service).Invoke(null, new[] { new object[0] });
-#endif
+            var additionalInterfaces = context.Parameters.OfType<AdditionalInterfaceParameter>().Select(ai => (Type)ai.GetValue(context, null)).ToArray();
+
+            return MockRepository.GenerateMock(context.Request.Service, additionalInterfaces, new object[0]);
         }
 
         /// <summary>

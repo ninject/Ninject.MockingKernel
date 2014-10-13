@@ -21,6 +21,7 @@
 
 namespace Ninject.MockingKernel
 {
+    using System;
     using Ninject.Syntax;
 
     /// <summary>
@@ -33,12 +34,19 @@ namespace Ninject.MockingKernel
         /// </summary>
         /// <typeparam name="T">The service that is being mocked.</typeparam>
         /// <param name="builder">The builder that is building the binding.</param>
+        /// <param name="additionalInterfaces">The additional interfaces for the mock.</param>
         /// <returns>The syntax for adding more information to the binding.</returns>
-        public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> builder)
+        public static IBindingWhenInNamedWithOrOnSyntax<T> ToMock<T>(this IBindingToSyntax<T> builder, params Type[] additionalInterfaces)
         {
             var result = builder.To<T>();
 
             var bindingConfiguration = builder.BindingConfiguration;
+
+            foreach (var additionalInterface in additionalInterfaces)
+            {
+                bindingConfiguration.Parameters.Add(new AdditionalInterfaceParameter(additionalInterface));
+            }
+
             bindingConfiguration.ProviderCallback = builder.Kernel.Components.Get<IMockProviderCallbackProvider>().GetCreationCallback();
 
             return result;

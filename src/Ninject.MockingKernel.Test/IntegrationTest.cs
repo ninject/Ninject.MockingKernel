@@ -63,6 +63,22 @@ namespace Ninject.MockingKernel
         }
 
         /// <summary>
+        /// The ToMock extension can be used to add additional interfaces.
+        /// </summary>
+        [Fact]
+        public void ToMockCanBeUsedToAddAdditionalInterfaces()
+        {
+            using (var kernel = this.CreateKernel())
+            {
+                kernel.Bind<IDummyService>().ToMock(typeof(IDummyService2));
+
+                var mock = kernel.Get<IDummyService>();
+
+                mock.Should().BeAssignableTo<IDummyService2>();
+            }
+        }
+
+        /// <summary>
         /// Reals the objects are created for auto bindable types.
         /// </summary>
         [Fact]

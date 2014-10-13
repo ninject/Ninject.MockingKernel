@@ -71,6 +71,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AdditionalInterfaceParameter.cs" />
     <Compile Include="ExtensionsForBindingSyntax.cs" />
     <Compile Include="IMockProviderCallbackProvider.cs" />
     <Compile Include="MockMissingBindingResolver.cs" />

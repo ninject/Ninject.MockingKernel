@@ -42,6 +42,12 @@ namespace Ninject.MockingKernel.Moq
         /// </summary>
         /// <value>The method info of the create method.</value>
         MethodInfo CreateMethod { get; }
+
+        /// <summary>
+        /// Gets the method info of the add additional interface method.
+        /// </summary>
+        /// <value>the method info of the add additional interface method.</value>
+        MethodInfo AddAdditionalInterfaceMethod { get; }
     }
 }
 #endif
