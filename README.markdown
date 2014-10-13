@@ -3,7 +3,7 @@ In your tests, you should use the MockingKernel instead of the StandardKernel. I
 
 1. The following syntax will bind a service to the mocked object of a Mock<T>:
 
-    Bind<IService>().ToMock();
+    `Bind<IService>().ToMock();`
 
 2. If you request a service that has no binding, instead of creating an implicit self-binding, the MockingKernel
    will create an instance of Mock<T> and return the mocked object associated with it.
