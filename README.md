@@ -24,4 +24,4 @@ Hat tip to [Scott Reynolds](http://github.com/scottcreynolds) for the idea, and 
 https://github.com/ninject/Ninject.MockingKernel/wiki
 
 ## CI build status
-[![Build Status](https://teamcity.bbv.ch/app/rest/builds/buildType:(id:bt44)/statusIcon)](http://teamcity.bbv.ch/viewType.html?buildTypeId=bt44&guest=1)
+[![Build Status](https://teamcity.bbv.ch/app/rest/builds/buildType:(id:bt34)/statusIcon)](http://teamcity.bbv.ch/viewType.html?buildTypeId=bt34&guest=1)
