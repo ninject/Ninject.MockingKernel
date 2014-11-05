@@ -5,16 +5,17 @@
     <version></version>
     <authors>Ninject Project Contributors</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-	<licenseUrl>https://github.com/ninject/ninject.mockingkernel/raw/master/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://github.com/ninject/ninject.mockingkernel/raw/master/LICENSE.txt</licenseUrl>
     <description>Automock implementation for RhinoMocks using Ninject to create the objects under test.</description>
+    <releaseNotes>https://github.com/ninject/Ninject.MockingKernel/blob/master/ReleaseNotes.md</releaseNotes>
     <summary></summary>
     <language>en-US</language>
-	<tags>Ninject ioc di automock RhinoMocks</tags>
-	<iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
-	<projectUrl>http://www.ninject.org</projectUrl>
+    <tags>Ninject ioc di automock RhinoMocks</tags>
+    <iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
+    <projectUrl>http://www.ninject.org</projectUrl>
     <dependencies>
       <dependency id="Ninject.MockingKernel" version="" />
       <dependency id="RhinoMocks" version="[3.6,4.0)" />
-    </dependencies> 
+    </dependencies>
   </metadata>
 </package>

@@ -1,9 +1,12 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19E2834E-3CD3-420D-ADE1-FC9A75E67E04}"
 	ProjectSection(SolutionItems) = preProject
-		README.markdown = README.markdown
+		README.md = README.md
+		ReleaseNotes.md = ReleaseNotes.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel", "src\Ninject.MockingKernel\Ninject.MockingKernel.csproj", "{C0CFA4C0-1B4D-4011-94F2-7DB1CF98D67D}"
@@ -17,8 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.RhinoMocks", "src\Ninject.MockingKernel.RhinoMock\Ninject.MockingKernel.RhinoMocks.csproj", "{A5C663D7-2943-4BF4-9B08-567FA04CC3AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.RhinoMocks.Test", "src\Ninject.MockingKernel.RhinoMock.Test\Ninject.MockingKernel.RhinoMocks.Test.csproj", "{8BD4FA63-ACBA-430F-80FB-DA86AAF53F58}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.SilverlightTests", "src\Ninject.MockingKernel.SilverlightTests\Ninject.MockingKernel.SilverlightTests.csproj", "{949002CF-F181-4E7C-B8A1-8233A2159074}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.NSubstitute", "src\Ninject.MockingKernel.NSubstitute\Ninject.MockingKernel.NSubstitute.csproj", "{5C36A6ED-BFD9-4181-96ED-FED4D0E1E6F5}"
 EndProject
@@ -54,10 +55,6 @@ Global
 		{8BD4FA63-ACBA-430F-80FB-DA86AAF53F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BD4FA63-ACBA-430F-80FB-DA86AAF53F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BD4FA63-ACBA-430F-80FB-DA86AAF53F58}.Release|Any CPU.Build.0 = Release|Any CPU
-		{949002CF-F181-4E7C-B8A1-8233A2159074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{949002CF-F181-4E7C-B8A1-8233A2159074}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{949002CF-F181-4E7C-B8A1-8233A2159074}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{949002CF-F181-4E7C-B8A1-8233A2159074}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C36A6ED-BFD9-4181-96ED-FED4D0E1E6F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C36A6ED-BFD9-4181-96ED-FED4D0E1E6F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C36A6ED-BFD9-4181-96ED-FED4D0E1E6F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
