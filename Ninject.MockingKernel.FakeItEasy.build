@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project name="Ninject" default="build">
-	<target name="buildFakeItEasy" unless="${string::contains(build.platform, 'silverlight-4.0')}">
+	<target name="buildFakeItEasy" unless="${string::contains(build.platform, 'silverlight-4.0') or string::contains(build.platform, 'netcf-3.5')}">
 		<property name="product.assembly.FakeItEasy" value="${product.name}.FakeItEasy.dll" overwrite="false"/>
 		<property name="product.docfile.FakeItEasy" value="${product.name}.FakeItEasy.xml" overwrite="false"/>
 		
