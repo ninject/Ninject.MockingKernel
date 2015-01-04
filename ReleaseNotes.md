@@ -1,3 +1,7 @@
+Version 3.2..2
+---------------
+Added: Support FakeItEasy
+
 Version 3.2.1
 ---------------
 Added: Support additional interfaces when mock

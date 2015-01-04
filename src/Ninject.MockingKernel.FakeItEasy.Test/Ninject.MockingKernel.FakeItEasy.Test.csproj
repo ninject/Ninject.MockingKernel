@@ -1,84 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3644F8BE-C266-4236-813C-B7056E91200B}</ProjectGuid>
+    <ProjectGuid>{026CDA2C-BC44-4F2E-A6AD-EC41B74FA4FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ninject.MockingKernel.Moq</RootNamespace>
-    <AssemblyName>Ninject.MockingKernel.Moq.Test</AssemblyName>
+    <RootNamespace>Ninject.MockingKernel.FakeItEasy.Test</RootNamespace>
+    <AssemblyName>Ninject.MockingKernel.FakeItEasy.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>1637896b</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\debug\Moq\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\release\Moq\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentAssertions">
-      <HintPath>..\..\..\ninject.extensions.interception\tools\FluentAssertions\Net-3.5\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Moq.4.0.10827\lib\NET35\Moq.dll</HintPath>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\..\packages\FakeItEasy.1.25.1\lib\net35\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Ninject">
       <HintPath>..\..\lib\Ninject\net-3.5\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\..\tools\xunit.net\xunit.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultMockRepositoryProviderTest.cs" />
-    <Compile Include="MoqIntegrationTest.cs" />
+    <Compile Include="FakeItEasyIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ninject.MockingKernel.Moq\Ninject.MockingKernel.Moq.csproj">
-      <Project>{E2AB8BFC-08D4-4996-A034-8FDE4704C9A3}</Project>
-      <Name>Ninject.MockingKernel.Moq</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ninject.MockingKernel.Test\Ninject.MockingKernel.Test.csproj">
-      <Project>{40A61F8C-1982-45A8-9DDB-9509F41DB6D7}</Project>
-      <Name>Ninject.MockingKernel.Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ninject.MockingKernel\Ninject.MockingKernel.csproj">
-      <Project>{C0CFA4C0-1B4D-4011-94F2-7DB1CF98D67D}</Project>
-      <Name>Ninject.MockingKernel</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <ProjectReference Include="..\Ninject.MockingKernel.FakeItEasy\Ninject.MockingKernel.FakeItEasy.csproj">
+      <Project>{6c2c9465-a2fe-46b8-8537-4a81feeffb37}</Project>
+      <Name>Ninject.MockingKernel.FakeItEasy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ninject.MockingKernel.Test\Ninject.MockingKernel.Test.csproj">
+      <Project>{40a61f8c-1982-45a8-9ddb-9509f41db6d7}</Project>
+      <Name>Ninject.MockingKernel.Test</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ninject.MockingKernel\Ninject.MockingKernel.csproj">
+      <Project>{c0cfa4c0-1b4d-4011-94f2-7db1cf98d67d}</Project>
+      <Name>Ninject.MockingKernel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

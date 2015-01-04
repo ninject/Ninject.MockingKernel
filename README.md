@@ -1,15 +1,19 @@
 # Ninject.MockingKernel [![NuGet Version](http://img.shields.io/nuget/v/Ninject.MockingKernel.svg?style=flat)](https://www.nuget.org/packages/Ninject.MockingKernel/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Ninject.MockingKernel.svg?style=flat)](https://www.nuget.org/packages/Ninject.MockingKernel/)
 
-This extension provides integration between Ninject and Moq/NSubstitute/RhinoMocks, creating a "lightweight" auto-mocking container.
+This extension provides integration between Ninject and Moq/NSubstitute/RhinoMocks/FakeItEasy, creating a "lightweight" auto-mocking container.
 
 ## Getting started
 
 In your tests, you should use the MockingKernel instead of the StandardKernel. It adds the following features to Ninject:
 
-1. The following syntax will bind a service to the mocked object of a `Mock<T>`. and add additional interfaces to the mock:
-`Bind<IService>().ToMock();`
+1. The following syntax will bind a service to the mocked object of a `Mock<T>`. 
+```C#
+Bind<IService>().ToMock();
+```
 You can add additional interfaces to the mock:
-`Bind<IService>().ToMock(typeof(IInterface1), typeof(IInterface2));`
+```C#
+Bind<IService>().ToMock(typeof(IInterface1), typeof(IInterface2));
+```
 
 2. If you request a service that has no binding, instead of creating an implicit self-binding, the MockingKernel
    will create an instance of `Mock<T>` and return the mocked object associated with it.

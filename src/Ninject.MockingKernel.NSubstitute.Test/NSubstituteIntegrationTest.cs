@@ -35,7 +35,7 @@ namespace Ninject.MockingKernel.NSubstitute
         /// <returns>The newly created kernel.</returns>
         protected override MockingKernel CreateKernel()
         {
-            return new MockingKernel(new NinjectSettings(), new NSubstituteModule());
+            return new NSubstituteMockingKernel();
         }
 
         /// <summary>

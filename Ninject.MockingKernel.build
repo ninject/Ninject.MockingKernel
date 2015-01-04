@@ -14,11 +14,12 @@
 	<include buildfile="Ninject.MockingKernel.Moq.build" />
 	<include buildfile="Ninject.MockingKernel.RhinoMocks.build" />
 	<include buildfile="Ninject.MockingKernel.NSubstitute.build" />
+	<include buildfile="Ninject.MockingKernel.FakeItEasy.build" />
 
 	<target name="all" depends="core test silverlight-test"/>
-	<target name="nuget-all" depends="nuget nuget-moq nuget-RhinoMocks nuget-NSubstitute"/>
+	<target name="nuget-all" depends="nuget nuget-moq nuget-RhinoMocks nuget-NSubstitute nuget-FakeItEasy"/>
 
-	<target name="core" depends="init buildCore buildMoq buildRhinoMocks buildNSubstitute" />
+	<target name="core" depends="init buildCore buildMoq buildRhinoMocks buildNSubstitute buildFakeItEasy" />
 
 	<target name="buildCore" depends="init">
 		<csc noconfig="true" nostdlib="true" warnaserror="true" target="library" debug="${build.debug}" optimize="${build.optimize}" define="${build.defines}" 
@@ -53,15 +54,18 @@
 				<include name="${product.name}.Moq.Test/**/*.cs"/>
 				<include name="${product.name}.RhinoMock.Test/**/*.cs" unless="${string::contains(build.platform, 'mono')}"/>
 				<include name="${product.name}.NSubstitute.Test/**/*.cs"/>
+				<include name="${product.name}.FakeItEasy.Test/**/*.cs"/>
 				<exclude name="${product.name}.Moq.Test/Properties/*.cs"/>
 				<exclude name="${product.name}.RhinoMock.Test/Properties/*.cs" unless="${string::contains(build.platform, 'mono')}"/>
 				<exclude name="${product.name}.NSubstitute.Test/Properties/*.cs"/>
+				<exclude name="${product.name}.FakeItEasy.Test/Properties/*.cs"/>
 			</sources>
 			<references basedir="${current.path.test}">
 				<include name="mscorlib.dll"/>
 				<include name="System.dll"/>
 				<include name="System.Core.dll"/>
 				<include name="Moq.dll"/>
+				<include name="FakeItEasy.dll"/>
 				<include name="Rhino.Mocks.dll"/>
 				<include name="NSubstitute.dll"/>
 				<include name="xunit.dll"/>
@@ -70,6 +74,7 @@
 				<include name="${product.assembly.moq}"/>
 				<include name="${product.assembly.rhinomock}"  unless="${string::contains(build.platform, 'mono')}"/>
 				<include name="${product.assembly.nsubstitute}"/>
+				<include name="${product.assembly.FakeItEasy}"/>
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
 			</references>
 			<nowarn>
@@ -87,11 +92,13 @@
 			<sources basedir="${path.src}">
 				<include name="${product.name}.Test/**/*.cs"/>
 				<include name="${product.name}.Moq.Test/**/*.cs"/>
+				<include name="${product.name}.FakeItEasy.Test/**/*.cs" if="${string::contains(build.platform, 'silverlight-5.0')}"/>
 				<!--<include name="${product.name}.RhinoMock.Test/**/*.cs"/>-->
 				<include name="${product.name}.SilverlightTests/*.cs"/>
 				<exclude name="${product.name}.Test/MSTestAttributes/*.cs"/>
 				<exclude name="${product.name}.Moq.Test/Properties/*.cs"/>
-				<exclude name="${product.name}.RhinoMock.Test/Properties/*.cs"/>
+				<exclude name="${product.name}.FakeItEasy.Test/Properties/*.cs"/>
+				<!--<exclude name="${product.name}.RhinoMock.Test/Properties/*.cs"/>-->
 			</sources>
 			<references basedir="${current.path.test}">
 				<include name="mscorlib.dll"/>
@@ -108,10 +115,11 @@
 				<include name="Castle.DynamicProxy-Silverlight.dll" unless="${build.platform == 'silverlight-4.0' or build.platform == 'silverlight-5.0'}"/>
 				<include name="xunit.runner.silverlight.dll"/>
 				<include name="xunit-silverlight.dll"/>
-				<include name="Rhino.Mocks 3.5.Silverlight.dll"/>
+				<include name="FakeItEasy.dll" if="${string::contains(build.platform, 'silverlight-5.0')}"/>
 				<include name="FluentAssertions.Silverlight.dll"/>
 				<include name="${product.assembly}"/>
 				<include name="${product.assembly.moq}"/>
+				<include name="${product.assembly.FakeItEasy}"/>
 				<!--<include name="${product.assembly.rhinomock}"/>-->
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
 			</references>

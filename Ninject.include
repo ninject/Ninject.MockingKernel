@@ -15,6 +15,7 @@
 	<property name="path.tools.xunit" value="${path.tools}/xunit.net" dynamic="true"/>
 	<property name="path.tools.xunit.console" value="${path.tools.xunit}/xunit.console.exe" dynamic="true"/>
 	<property name="path.tools.moq" value="${path.tools}/moq" dynamic="true"/>
+	<property name="path.tools.fakeiteasy" value="${path.tools}/fakeiteasy" dynamic="true"/>
 	<property name="path.tools.ncover" value="${path.tools}/ncover" dynamic="true"/>
 	<property name="path.tools.git" value="${path.tools}/git" dynamic="true"/>
 	<property name="path.tools.statlight" value="${path.tools}/statlight/statlight.exe" dynamic="true"/>
@@ -664,6 +665,7 @@
 	<target name="CopyDefaultTestInfrastructureAssemblies-Target">
 		<call target="CopyXUnit-Target"/>
 		<call target="CopyMoq-Target"/>
+		<call target="CopyFakeItEasy-Target"/>
 		<call target="CopyFluentAssertions-Target"/>
 		<call target="CopyProjectOutput-Target"/>
 	</target>
@@ -676,6 +678,7 @@
 	<target name="CopyDefaultTestInfrastructureAssemblies-SL-Target">
 		<call target="CopyXUnit-SL-Target"/>
 		<call target="CopyMoq-SL-Target"/>
+		<call target="CopyFakeItEasy-SL-Target"/>
 		<call target="CopyFluentAssertions-SL-Target"/>
 		<call target="CopyProjectOutput-Target"/>
 	</target>
@@ -712,6 +715,24 @@
 		<copy todir="${target}" if="${string::contains(build.platform, 'net-4.') or string::contains(build.platform, 'mono-4.')}">
 			<fileset basedir="${path.tools.moq}/net40">
 				<include name="Moq.dll"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="CopyFakeItEasy">
+	    <property name="target" value="${current.path.test}" overwrite="true" />
+		<call target="CopyFakeItEasy-Target" />
+	</target>
+	
+	<target name="CopyFakeItEasy-Target">
+		<copy todir="${target}" if="${not(string::contains(build.platform, 'net-4.')) and not(string::contains(build.platform, 'mono-4.'))}">
+			<fileset basedir="${path.tools.fakeiteasy}/NET35">
+				<include name="FakeItEasy.dll"/>
+			</fileset>
+		</copy>
+		<copy todir="${target}" if="${string::contains(build.platform, 'net-4.') or string::contains(build.platform, 'mono-4.')}">
+			<fileset basedir="${path.tools.fakeiteasy}/NET40">
+				<include name="FakeItEasy.dll"/>
 			</fileset>
 		</copy>
 	</target>
@@ -760,6 +781,19 @@
 				<include name="Moq.Silverlight.dll"/>
 				<include name="Castle.Core-Silverlight.dll"/>
 				<include name="Castle.DynamicProxy-Silverlight.dll"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="CopyFakeItEasy-SL">
+	    <property name="target" value="${current.path.test}" overwrite="true" />
+		<call target="CopyFakeItEasy-SL-Target" />
+	</target>
+	
+	<target name="CopyFakeItEasy-SL-Target">
+		<copy todir="${target}" if="${string::contains(build.platform, 'silverlight-5.0')}">
+			<fileset basedir="${path.tools.fakeiteasy}/SL50">
+				<include name="FakeItEasy.dll"/>
 			</fileset>
 		</copy>
 	</target>

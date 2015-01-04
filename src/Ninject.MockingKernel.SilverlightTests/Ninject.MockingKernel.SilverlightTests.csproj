@@ -56,7 +56,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SILVERLIGHT_MSTEST;NO_RHINOMOCKS_SILVERLIGHT_TESTS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SILVERLIGHT_MSTEST</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -73,6 +73,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\..\lib\FakeItEasy\Silverlight5\FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="FluentAssertions.Silverlight">
       <HintPath>..\..\tools\FluentAssertions\Silverlight-4.0\FluentAssertions.Silverlight.dll</HintPath>
     </Reference>
@@ -84,6 +87,9 @@
     </Reference>
     <Reference Include="Ninject.MockingKernel">
       <HintPath>..\..\build\silverlight-4.0\release\Ninject.MockingKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.MockingKernel.FakeItEasy">
+      <HintPath>..\..\build\silverlight-5.0\Ninject.MockingKernel.FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Ninject.MockingKernel.Moq">
       <HintPath>..\..\build\silverlight-4.0\release\Ninject.MockingKernel.Moq.dll</HintPath>
@@ -103,14 +109,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Ninject.MockingKernel.FakeItEasy.Test\FakeItEasyIntegrationTest.cs">
+      <Link>FakeItEasyIntegrationTest.cs</Link>
+    </Compile>
     <Compile Include="..\Ninject.MockingKernel.Moq.Test\MoqIntegrationTest.cs">
       <Link>MoqIntegrationTest.cs</Link>
     </Compile>
-    <Compile Include="..\Ninject.MockingKernel.RhinoMock.Test\RhinoMocksIntegrationTest.cs">
-      <Link>RhinoMocksIntegrationTest.cs</Link>
-    </Compile>
     <Compile Include="..\Ninject.MockingKernel.Test\IDummyService.cs">
       <Link>IDummyService.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.MockingKernel.Test\IDummyService2.cs">
+      <Link>IDummyService2.cs</Link>
     </Compile>
     <Compile Include="..\Ninject.MockingKernel.Test\IntegrationTest.cs">
       <Link>IntegrationTest.cs</Link>

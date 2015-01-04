@@ -42,6 +42,16 @@ namespace Ninject.MockingKernel
         /// <summary>
         /// Initializes a new instance of the <see cref="MockingKernel"/> class.
         /// </summary>
+        /// <param name="modules">The modules to load into the kernel.</param>
+        public MockingKernel(params INinjectModule[] modules)
+            : base(modules)
+        {
+            this.AddComponents();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MockingKernel"/> class.
+        /// </summary>
         /// <param name="settings">The configuration to use.</param>
         /// <param name="modules">The modules to load into the kernel.</param>
         public MockingKernel(INinjectSettings settings, params INinjectModule[] modules)
