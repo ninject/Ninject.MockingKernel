@@ -24,7 +24,7 @@ namespace Ninject.MockingKernel.FakeItEasy
     using global::FakeItEasy;
 
     /// <summary>
-    /// Tests the rhino mocks mocking kernel.
+    /// Tests the FakeItEasy mocking kernel.
     /// </summary>
     public class FakeItEasyIntegrationTest : IntegrationTest
     {
