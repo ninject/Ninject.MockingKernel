@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{19E2834E-3CD3-420D-ADE1-FC9A75E67E04}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-		ReleaseNotes.md = ReleaseNotes.md
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel", "src\Ninject.MockingKernel\Ninject.MockingKernel.csproj", "{C0CFA4C0-1B4D-4011-94F2-7DB1CF98D67D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.Test", "src\Ninject.MockingKernel.Test\Ninject.MockingKernel.Test.csproj", "{40A61F8C-1982-45A8-9DDB-9509F41DB6D7}"
@@ -28,6 +22,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.FakeItEasy", "src\Ninject.MockingKernel.FakeItEasy\Ninject.MockingKernel.FakeItEasy.csproj", "{6C2C9465-A2FE-46B8-8537-4A81FEEFFB37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.MockingKernel.FakeItEasy.Test", "src\Ninject.MockingKernel.FakeItEasy.Test\Ninject.MockingKernel.FakeItEasy.Test.csproj", "{026CDA2C-BC44-4F2E-A6AD-EC41B74FA4FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{92CEC3B2-6EE7-49A0-AFDC-BC726C79061D}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

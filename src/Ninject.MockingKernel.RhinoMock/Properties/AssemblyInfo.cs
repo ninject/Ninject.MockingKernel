@@ -18,11 +18,6 @@
 //-------------------------------------------------------------------------------
 
 using System.Reflection;
-using System.Security;
-
-#if !SILVERLIGHT && !NETCF && !NO_PARTIAL_TRUST
-[assembly: AllowPartiallyTrustedCallers]
-#endif
 
 [assembly: AssemblyTitleAttribute("Automocking for Rhionmocks")]
 [assembly: AssemblyDescriptionAttribute("Automock implementation for RhinoMocks using Ninject to create the objects under test.")]
