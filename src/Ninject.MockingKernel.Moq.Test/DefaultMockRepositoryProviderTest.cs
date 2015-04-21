@@ -36,6 +36,8 @@ namespace Ninject.MockingKernel.Moq
             var mock = testee.Instance.Create<IDummyService>();
                 
             mock.Behavior.Should().Be(MockBehavior.Default);
+            mock.CallBase.Should().Be(false);
+            mock.DefaultValue.Should().Be(DefaultValue.Empty);
         }
 
         [Fact]
@@ -47,6 +49,28 @@ namespace Ninject.MockingKernel.Moq
 
             var mock = testee.Instance.Create<IDummyService>();
             mock.Behavior.Should().Be(MockBehavior.Strict);
+        }
+
+        [Fact]
+        public void CreatesMocksWithTheConfiguredCallBaseBehavior()
+        {
+            var settings = new NinjectSettings();
+            settings.SetMockCallBase(true);
+            var testee = new DefaultMockRepositoryProvider { Settings = settings };
+
+            var mock = testee.Instance.Create<IDummyService>();
+            mock.CallBase.Should().Be(true);
+        }
+
+        [Fact]
+        public void CreatesMocksWithTheConfiguredDefaultReturnValue()
+        {
+            var settings = new NinjectSettings();
+            settings.SetMockDefaultValue(DefaultValue.Mock);
+            var testee = new DefaultMockRepositoryProvider { Settings = settings };
+
+            var mock = testee.Instance.Create<IDummyService>();
+            mock.DefaultValue.Should().Be(DefaultValue.Mock);
         }
     }
 }
