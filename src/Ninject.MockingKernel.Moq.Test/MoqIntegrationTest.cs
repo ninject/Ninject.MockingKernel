@@ -47,7 +47,7 @@ namespace Ninject.MockingKernel.Moq
         //        var mock = kernel.Get<IDummyService>();
 
         //        Assert.DoesNotThrow(mock.Do);
-        //     }
+        //    }
         //}
     
         /// <summary>
