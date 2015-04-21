@@ -36,19 +36,19 @@ namespace Ninject.MockingKernel.Moq
     /// </summary>
     public class MoqIntegrationTest : IntegrationTest
     {
-        /// <summary>
-        /// Mocks are loose by default
-        /// </summary>
-        [Fact]
-        public void MocksAreLooseByDefault()
-        {
-            using (var kernel = this.CreateKernel())
-            {
-                var mock = kernel.Get<IDummyService>();
+        ///// <summary>
+        ///// Mocks are loose by default
+        ///// </summary>
+        //[Fact]
+        //public void MocksAreLooseByDefault()
+        //{
+        //    using (var kernel = this.CreateKernel())
+        //    {
+        //        var mock = kernel.Get<IDummyService>();
 
-                Assert.DoesNotThrow(mock.Do);
-             }
-        }
+        //        Assert.DoesNotThrow(mock.Do);
+        //    }
+        //}
     
         /// <summary>
         /// Mocks are loose by default
