@@ -30,6 +30,8 @@ namespace Ninject.MockingKernel
     /// </summary>
     public abstract class IntegrationTest
     {
+        public delegate bool DummyDelegate(string argument);
+
         /// <summary>
         /// Mocks are singletons.
         /// </summary>
@@ -117,8 +119,10 @@ namespace Ninject.MockingKernel
             {
                 var instance = kernel.Get<DummyClass>();
                 instance.DummyService.Do();
+                instance.DummyDelegate("argument");
 
                 this.AssertDoWasCalled(instance.DummyService);
+                this.AssertDelegateWasCalledWithArgument(instance.DummyDelegate);
             }
         }
 
@@ -127,6 +131,12 @@ namespace Ninject.MockingKernel
         /// </summary>
         /// <param name="dummyService">The dummy service.</param>
         protected abstract void AssertDoWasCalled(IDummyService dummyService);
+
+        /// <summary>
+        /// Asserts that the delegate was called.
+        /// </summary>
+        /// <param name="dummyDelegate">The dummy delegate.</param>
+        protected abstract void AssertDelegateWasCalledWithArgument(DummyDelegate dummyDelegate);
 
         /// <summary>
         /// Creates the kernel.
@@ -143,9 +153,11 @@ namespace Ninject.MockingKernel
             /// Initializes a new instance of the <see cref="DummyClass"/> class.
             /// </summary>
             /// <param name="dummyService">The dummy service.</param>
-            public DummyClass(IDummyService dummyService)
+            /// <param name="dummyDelegate">The dummy delegate</param>
+            public DummyClass(IDummyService dummyService, DummyDelegate dummyDelegate)
             {
                 this.DummyService = dummyService;
+                this.DummyDelegate = dummyDelegate;
             }
 
             /// <summary>
@@ -153,6 +165,8 @@ namespace Ninject.MockingKernel
             /// </summary>
             /// <value>The dummy service.</value>
             public IDummyService DummyService { get; set; }
+
+            public DummyDelegate DummyDelegate { get; set; }
         }
     }
 }

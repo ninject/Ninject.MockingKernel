@@ -79,7 +79,7 @@ namespace Ninject.MockingKernel
         /// <returns><see langword="True"/> if the type is self-bindable; otherwise <see langword="false"/>.</returns>
         protected virtual bool TypeIsInterfaceOrAbstract(Type service)
         {
-            return service.IsInterface || service.IsAbstract;
+            return service.IsInterface || service.IsAbstract || typeof(MulticastDelegate).IsAssignableFrom(service);
         }
     }
 }
