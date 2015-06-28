@@ -75,8 +75,8 @@ namespace Ninject.MockingKernel
         private new void AddComponents()
         {
             this.Components.RemoveAll<IMissingBindingResolver>();
-            this.Components.Add<IMissingBindingResolver, SingletonSelfBindingResolver>();
             this.Components.Add<IMissingBindingResolver, MockMissingBindingResolver>();
+            this.Components.Add<IMissingBindingResolver, SingletonSelfBindingResolver>();
         }
     }
 }

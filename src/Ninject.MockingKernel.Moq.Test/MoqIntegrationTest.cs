@@ -85,7 +85,7 @@ namespace Ninject.MockingKernel.Moq
             }
         }
 #endif
-       
+
         /// <summary>
         /// Creates the kernel.
         /// </summary>
@@ -102,6 +102,15 @@ namespace Ninject.MockingKernel.Moq
         protected override void AssertDoWasCalled(IDummyService dummyService)
         {
             Mock.Get(dummyService).Verify(service => service.Do());
+        }
+
+        /// <summary>
+        /// Asserts that the delegate was called.
+        /// </summary>
+        /// <param name="dummyDelegate">The dummy delegate.</param>
+        protected override void AssertDelegateWasCalledWithArgument(DummyDelegate dummyDelegate)
+        {
+            Mock.Get(dummyDelegate).Verify(d => d("argument"));
         }
 
 #if !SILVERLIGHT_30 && !SILVERLIGHT_20 && !NETCF

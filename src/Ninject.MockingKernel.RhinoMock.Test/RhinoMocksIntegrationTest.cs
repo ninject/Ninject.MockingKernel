@@ -45,5 +45,14 @@ namespace Ninject.MockingKernel.RhinoMock
         {
             dummyService.AssertWasCalled(s => s.Do());
         }
+
+        /// <summary>
+        /// Asserts that the delegate was called.
+        /// </summary>
+        /// <param name="dummyDelegate">The dummy delegate.</param>
+        protected override void AssertDelegateWasCalledWithArgument(DummyDelegate dummyDelegate)
+        {
+            dummyDelegate.AssertWasCalled(s => s("argument"));
+        }
     }
 }

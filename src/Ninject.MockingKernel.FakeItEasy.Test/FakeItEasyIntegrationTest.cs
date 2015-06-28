@@ -45,5 +45,14 @@ namespace Ninject.MockingKernel.FakeItEasy
         {
             A.CallTo(() => dummyService.Do()).MustHaveHappened();
         }
+
+        /// <summary>
+        /// Asserts that the delegate was called.
+        /// </summary>
+        /// <param name="dummyDelegate">The dummy delegate.</param>
+        protected override void AssertDelegateWasCalledWithArgument(DummyDelegate dummyDelegate)
+        {
+            A.CallTo(() => dummyDelegate("argument")).MustHaveHappened();
+        }
     }
 }
