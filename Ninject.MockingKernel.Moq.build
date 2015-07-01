@@ -6,7 +6,7 @@
 		
 		<property name="packagepath.moq" value="Moq.*/lib/NET35" unless="${string::contains(build.platform, 'silverlight') or string::contains(build.platform, 'net-4.')}"/>
 		<property name="packagepath.moq" value="Moq.*/lib/NET40" unless="${string::contains(build.platform, 'silverlight')}" if="${string::contains(build.platform, 'net-4.')}"/>
-		<property name="packagepath.moq" value="Moq.*/lib/SL4" if="${string::contains(build.platform, 'silverlight')}" />
+		<property name="packagepath.moq" value="Moq.*/lib/SL5" if="${string::contains(build.platform, 'silverlight')}" />
 		<property name="current.path.lib.moq" value="${path.packages}/${packagepath.moq}"/>
 		
 		<copy todir="${path.packages}/lib">
