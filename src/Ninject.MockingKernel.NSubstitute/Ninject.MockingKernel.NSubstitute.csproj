@@ -1,75 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5C36A6ED-BFD9-4181-96ED-FED4D0E1E6F5}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ninject.MockingKernel.NSubstitute</RootNamespace>
-    <AssemblyName>Ninject.MockingKernel.NSubstitute</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <Version>0.0.0</Version>
+    <Authors>Andre Loker (mail@loker-it.de);Ninject Contributors</Authors>
+    <Company>Ninject Project Contributors</Company>
+    <Product>Automocking for NSubstitute</Product>
+    <Description>Automock implementation for NSubstitute using Ninject to create the objects under test.</Description>
+    <Copyright>Copyright (c) 2011 Andre Loker IT Services;2012-2017 Ninject Project Contributors</Copyright>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyOriginatorKeyFile>..\Ninject.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PackageId>Ninject.MockingKernel.NSubstitute</PackageId>
+    <PackageVersion>0.0.0</PackageVersion>
+    <PackageTags>Ninject;ioc;di;automock;NSubstitute</PackageTags>
+    <PackageProjectUrl>http://www.ninject.org/</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/ninject/Ninject.MockingKernel/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageIconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</PackageIconUrl>
+    <PackageLicenseUrl>https://github.com/ninject/Ninject.MockingKernel/raw/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/ninject/Ninject.MockingKernel</RepositoryUrl>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Ninject">
-      <HintPath>..\..\lib\Ninject\net-3.5\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="NSubstitute, Version=1.5.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NSubstitute.1.5.0.0\lib\NET35\NSubstitute.dll</HintPath>
-    </Reference>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NSubstitute" Version="3.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+  
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="NSubstituteMockingKernel.cs" />
-    <Compile Include="NSubstituteMockProvider.cs" />
-    <Compile Include="NSubstituteModule.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\Ninject.MockingKernel\Ninject.MockingKernel.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ninject.MockingKernel\Ninject.MockingKernel.csproj">
-      <Project>{C0CFA4C0-1B4D-4011-94F2-7DB1CF98D67D}</Project>
-      <Name>Ninject.MockingKernel</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

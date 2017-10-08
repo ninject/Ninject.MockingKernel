@@ -1,6 +1,11 @@
-# Ninject.MockingKernel [![NuGet Version](http://img.shields.io/nuget/v/Ninject.MockingKernel.svg?style=flat)](https://www.nuget.org/packages/Ninject.MockingKernel/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Ninject.MockingKernel.svg?style=flat)](https://www.nuget.org/packages/Ninject.MockingKernel/)
+# Ninject.MockingKernel 
 
-This extension provides integration between Ninject and Moq/NSubstitute/RhinoMocks/FakeItEasy, creating a "lightweight" auto-mocking container.
+[![Build status](https://ci.appveyor.com/api/projects/status/kitij4ayps08ot1c?svg=true)](https://ci.appveyor.com/project/Ninject/ninject-mockingkernel)
+[![codecov](https://codecov.io/gh/ninject/Ninject.MockingKernel/branch/master/graph/badge.svg)](https://codecov.io/gh/ninject/Ninject.MockingKernel)
+[![NuGet Version](http://img.shields.io/nuget/v/Ninject.MockingKernel.svg?style=flat)](https://www.nuget.org/packages/Ninject.MockingKernel/)
+[![NuGet Downloads](http://img.shields.io/nuget/dt/Ninject.MockingKernel.svg?style=flat)](https://www.nuget.org/packages/Ninject.MockingKernel/)
+
+This extension provides integration between Ninject and Moq/NSubstitute/FakeItEasy, creating a "lightweight" auto-mocking container.
 
 ## Getting started
 
@@ -26,6 +31,3 @@ Hat tip to [Scott Reynolds](http://github.com/scottcreynolds) for the idea, and 
 
 ## Documentation
 https://github.com/ninject/Ninject.MockingKernel/wiki
-
-## CI build status
-[![Build Status](https://teamcity.bbv.ch/app/rest/builds/buildType:(id:bt34)/statusIcon)](http://teamcity.bbv.ch/viewType.html?buildTypeId=bt34&guest=1)

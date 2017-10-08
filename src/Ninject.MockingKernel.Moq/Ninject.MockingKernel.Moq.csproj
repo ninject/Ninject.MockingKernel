@@ -1,87 +1,54 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E2AB8BFC-08D4-4996-A034-8FDE4704C9A3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ninject.MockingKernel.Moq</RootNamespace>
-    <AssemblyName>Ninject.MockingKernel.Moq</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\build\debug\Moq\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\build\release\Moq\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\build\release\Moq\Ninject.MockingKernel.Moq.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <Version>0.0.0</Version>
+    <Authors>Scott Xu (scott-xu@msn.com);Ninject Contributors</Authors>
+    <Company>Ninject Project Contributors</Company>
+    <Product>Automocking for Moq</Product>
+    <Description>Automock implementation for Moq using Ninject to create the objects under test.</Description>
+    <Copyright>2010 bbv Software Services AG;2011-2017 Ninject Project Contributors</Copyright>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyOriginatorKeyFile>..\Ninject.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PackageId>Ninject.MockingKernel.Moq</PackageId>
+    <PackageVersion>0.0.0</PackageVersion>
+    <PackageTags>Ninject;ioc;di;automock;Moq</PackageTags>
+    <PackageProjectUrl>http://www.ninject.org/</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/ninject/Ninject.MockingKernel/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <PackageIconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</PackageIconUrl>
+    <PackageLicenseUrl>https://github.com/ninject/Ninject.MockingKernel/raw/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/ninject/Ninject.MockingKernel</RepositoryUrl>
+    <DebugType>pdbonly</DebugType>
   </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net35\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\..\lib\Ninject\net-3.5\Ninject.dll</HintPath>
-    </Reference>
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.7.137" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="DefaultMockRepositoryProvider.cs" />
-    <Compile Include="IMockRepositoryProvider.cs" />
-    <Compile Include="MoqMockingKernel.cs" />
-    <Compile Include="MoqMockProvider.cs" />
-    <Compile Include="MoqModule.cs" />
-    <Compile Include="NinjectSettingsExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\Ninject.MockingKernel\Ninject.MockingKernel.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Ninject.MockingKernel\Ninject.MockingKernel.csproj">
-      <Project>{C0CFA4C0-1B4D-4011-94F2-7DB1CF98D67D}</Project>
-      <Name>Ninject.MockingKernel</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

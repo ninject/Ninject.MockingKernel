@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "companyName": "Ninject Project Contributors",
+      "copyrightText": "  Copyright (c) 2011 Andre Loker IT Services\r\n  Copyright (c) 2012-2017 Ninject Project Contributors\r\n  Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).",
+      "headerDecoration": "-------------------------------------------------------------------------------------------------"
+    },
+    "layoutRules": {
+      "newlineAtEndOfFile": "omit"
+    }
+  }
+}
