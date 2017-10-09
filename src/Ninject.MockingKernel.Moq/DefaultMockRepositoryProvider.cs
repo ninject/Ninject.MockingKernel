@@ -46,7 +46,11 @@ namespace Ninject.MockingKernel.Moq
             {
                 if (this.instance == null)
                 {
-                    this.instance = new MockRepository(this.Settings.GetMockBehavior());
+                    this.instance = new MockRepository(this.Settings.GetMockBehavior())
+                    {
+                        CallBase = this.Settings.GetMockCallBase(),
+                        DefaultValue = this.Settings.GetMockDefaultValue(),
+                    };
                 }
 
                 return this.instance;
