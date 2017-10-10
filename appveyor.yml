@@ -34,9 +34,9 @@ build:
   verbosity: minimal
 
 test_script:
-  - OpenCover.Console.exe -oldstyle -returntargetcode -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --configuration Release --no-build src\Ninject.MockingKernel.FakeItEasy.Test" -filter:"+[Ninject.MockingKernel]* +[Ninject.MockingKernel.FakeItEasy]*" -excludebyattribute:*.ExcludeFromCodeCoverage*;*.Obsolete* -output:"Ninject.MockingKernel.FakeItEasy_coverage.xml"
-  - OpenCover.Console.exe -oldstyle -returntargetcode -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --configuration Release --no-build src\Ninject.MockingKernel.Moq.Test" -filter:"+[Ninject.MockingKernel]* +[Ninject.MockingKernel.Moq]*" -excludebyattribute:*.ExcludeFromCodeCoverage*;*.Obsolete* -output:"Ninject.MockingKernel.Moq_coverage.xml"
-  - OpenCover.Console.exe -oldstyle -returntargetcode -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --configuration Release --no-build src\Ninject.MockingKernel.NSubstitute.Test" -filter:"+[Ninject.MockingKernel]* +[Ninject.MockingKernel.NSubstitute]*" -excludebyattribute:*.ExcludeFromCodeCoverage*;*.Obsolete* -output:"Ninject.MockingKernel.NSubstitute_coverage.xml"
+  - OpenCover.Console.exe -oldstyle -returntargetcode -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --configuration Release --no-build src\Ninject.MockingKernel.FakeItEasy.Test" -filter:"+[Ninject.MockingKernel]* +[Ninject.MockingKernel.FakeItEasy]*" -excludebyattribute:*.ExcludeFromCodeCoverage*;*.Obsolete* -output:".\Ninject.MockingKernel.FakeItEasy_coverage.xml"
+  - OpenCover.Console.exe -oldstyle -returntargetcode -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --configuration Release --no-build src\Ninject.MockingKernel.Moq.Test" -filter:"+[Ninject.MockingKernel]* +[Ninject.MockingKernel.Moq]*" -excludebyattribute:*.ExcludeFromCodeCoverage*;*.Obsolete* -output:".\Ninject.MockingKernel.Moq_coverage.xml"
+  - OpenCover.Console.exe -oldstyle -returntargetcode -register:user -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test --configuration Release --no-build src\Ninject.MockingKernel.NSubstitute.Test" -filter:"+[Ninject.MockingKernel]* +[Ninject.MockingKernel.NSubstitute]*" -excludebyattribute:*.ExcludeFromCodeCoverage*;*.Obsolete* -output:".\Ninject.MockingKernel.NSubstitute_coverage.xml"
   - codecov -f "Ninject.MockingKernel.FakeItEasy_coverage.xml Ninject.MockingKernel.Moq_coverage.xml Ninject.MockingKernel.NSubstitute_coverage.xml"
 
 artifacts:
