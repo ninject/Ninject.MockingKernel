@@ -10,6 +10,7 @@ namespace Ninject.MockingKernel
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Ninject.Activation;
     using Ninject.Components;
     using Ninject.Infrastructure;
@@ -47,13 +48,20 @@ namespace Ninject.MockingKernel
             IList<IBinding> bindingList = new List<IBinding>();
             if (this.TypeIsInterfaceOrAbstract(service))
             {
-                bindingList.Add(
-                    new Binding(service)
-                    {
-                        ProviderCallback = this.mockProviderCallbackProvider.GetCreationCallback(),
-                        ScopeCallback = ctx => StandardScopeCallbacks.Singleton,
-                        IsImplicit = true,
-                    });
+                var binding = new Binding(service)
+                {
+                    ProviderCallback = this.mockProviderCallbackProvider.GetCreationCallback(),
+                    ScopeCallback = ctx => StandardScopeCallbacks.Singleton,
+                    IsImplicit = true,
+                };
+
+                if (request.Target != null &&
+                    request.Target.GetCustomAttributes(typeof(NamedAttribute), false).FirstOrDefault() is NamedAttribute namedAttribute)
+                {
+                    binding.Metadata.Name = namedAttribute.Name;
+                }
+
+                bindingList.Add(binding);
             }
 
             return bindingList;

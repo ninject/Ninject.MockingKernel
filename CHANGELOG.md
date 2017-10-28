@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Support auto mocking named interfaces [#17](https://github.com/ninject/Ninject.MockingKernel/issues/17) 
+
 ## [3.3.0-beta1]
 
 ### Added

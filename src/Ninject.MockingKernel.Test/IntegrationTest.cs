@@ -24,7 +24,7 @@ namespace Ninject.MockingKernel
     using FluentAssertions;
 
     using Xunit;
-    
+
     /// <summary>
     /// Abstract test base for testing mocking kernel implementations
     /// </summary>
@@ -126,6 +126,15 @@ namespace Ninject.MockingKernel
             }
         }
 
+        [Fact]
+        public void NamedDependencyCanBeAutoMocked()
+        {
+            using (var kernel = this.CreateKernel())
+            {
+                var instance = kernel.Get<DummyClassWithNamedDependency>();
+            }
+        }
+
         /// <summary>
         /// Asserts that do was called.
         /// </summary>
@@ -167,6 +176,13 @@ namespace Ninject.MockingKernel
             public IDummyService DummyService { get; set; }
 
             public DummyDelegate DummyDelegate { get; set; }
+        }
+
+        public class DummyClassWithNamedDependency
+        {
+            public DummyClassWithNamedDependency([Named("Foo")] IDummyService dummyService)
+            {
+            }
         }
     }
 }
